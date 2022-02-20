@@ -22,4 +22,9 @@ public class Card {
         return RANK.getVALUE();
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s of %s", getRANK(), getSUIT());
+    }
+
 }
