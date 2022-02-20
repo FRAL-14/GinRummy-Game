@@ -10,19 +10,19 @@ public class Game {
     private int turnNumber;
     private Timestamp timeStamp;
 
-    public Game(int turnNumber, Player HUMAN_PLAYER, Player COMPUTER_PLAYER) {
-        this.turnNumber = turnNumber;
+    public Game(String nameHumanPlayer) {
+        this.turnNumber = 0;
         setTimeStampToNow();
-        this.HUMAN_PLAYER = HUMAN_PLAYER;
-        this.COMPUTER_PLAYER = COMPUTER_PLAYER;
+        this.HUMAN_PLAYER = new Player(nameHumanPlayer, 0, false);
+        this.COMPUTER_PLAYER = new Player("Computer", 0, true);
     }
 
     public int getTurnNumber() {
         return turnNumber;
     }
 
-    public void setTurnNumber(int turnNumber) {
-        this.turnNumber = turnNumber;
+    public void incrementTurnNumber() {
+        turnNumber++;
     }
 
     public Timestamp getTimeStamp() {
