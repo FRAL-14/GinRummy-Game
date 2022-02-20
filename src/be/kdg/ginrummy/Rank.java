@@ -18,14 +18,14 @@ public enum Rank {
     QUEEN(10),
     KING(10);
 
-    private final int value;
+    private final int VALUE;
 
     Rank(int value) {
-        this.value = value;
+        this.VALUE = value;
     }
 
-    public int getValue() {
-        return value;
+    public int getVALUE() {
+        return VALUE;
     }
 
     @Override

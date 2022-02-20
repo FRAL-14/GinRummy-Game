@@ -9,14 +9,14 @@ public enum Suit {
     CLUBS("black"),
     DIAMONDS("red");
 
-    private final String colour;
+    private final String COLOUR;
 
     Suit(String colour) {
-        this.colour = colour;
+        this.COLOUR = colour;
     }
 
-    public String getColour() {
-        return colour;
+    public String getCOLOUR() {
+        return COLOUR;
     }
 
     @Override
