@@ -10,11 +10,13 @@ public class Runner {
 
         //testing
         Deck deck = new Deck();
-        deck.print();
+        //deck.print();
 
         //testing
         Hand playerOne = new Hand(deck);
         playerOne.printPlayerCards();
+        //testing after player draw 10 cards
+        //deck.print();
     }
 
     public static Game getGame() {
