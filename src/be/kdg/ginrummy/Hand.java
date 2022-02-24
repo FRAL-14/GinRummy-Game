@@ -19,10 +19,12 @@ public class Hand extends Deck {
         deck.setDeckOfCards(updatedCardList);
     }
 
-    public void printPlayerCards() {
-        for (Card card : playerCards) {
-            System.out.print(card + " - ");
-        }
-
+    public void printPlayerCards() { for (Card card : playerCards) { System.out.print(card + " - ");}}
+    public void removeCard(int i){ playerCards.remove(i);}
+    public void addCard(Card card){playerCards.add(card);}
+    protected Card getCardAt(int i){return playerCards.get(i);}
+    public List<Card> getPlayerCards() {
+        return playerCards;
     }
+    public int getDeadWoodCount() { return deadWoodCount;}
 }
