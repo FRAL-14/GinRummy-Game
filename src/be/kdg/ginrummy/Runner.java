@@ -8,6 +8,9 @@ public class Runner {
 
         game = new Game("Leo");
 
+        //testing
+        Deck deck = new Deck();
+        deck.print();
     }
 
     public static Game getGame() {
