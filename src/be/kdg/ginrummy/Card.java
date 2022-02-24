@@ -12,4 +12,7 @@ public class Card {
         public int getValue() { return value; }
     }
 
+    public enum Suit {SPADES,HEARTS, CLUBS, DIAMONDS;}
+
+
 }
