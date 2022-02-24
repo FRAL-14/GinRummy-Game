@@ -11,6 +11,10 @@ public class Runner {
         //testing
         Deck deck = new Deck();
         deck.print();
+
+        //testing
+        Hand playerOne = new Hand(deck);
+        playerOne.printPlayerCards();
     }
 
     public static Game getGame() {

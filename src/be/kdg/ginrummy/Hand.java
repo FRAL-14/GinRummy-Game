@@ -19,4 +19,10 @@ public class Hand extends Deck {
         deck.setDeckOfCards(updatedCardList);
     }
 
+    public void printPlayerCards() {
+        for (Card card : playerCards) {
+            System.out.print(card + " - ");
+        }
+
+    }
 }
