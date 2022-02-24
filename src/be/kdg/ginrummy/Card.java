@@ -12,7 +12,22 @@ public class Card {
         public int getValue() { return value; }
     }
 
-    public enum Suit {SPADES,HEARTS, CLUBS, DIAMONDS;}
+    public enum Suit {
+        SPADES("black"),
+        HEARTS("red"),
+        CLUBS("black"),
+        DIAMONDS("red");
+
+        private final String COLOUR;
+
+        Suit(String colour) {
+            this.COLOUR = colour;
+        }
+
+        public String getCOLOUR() {
+            return COLOUR;
+        }
+    }
 
     private final Rank rank;
     private final Suit suit;
@@ -29,5 +44,6 @@ public class Card {
     public String toString(){
         return this.rank+ " of " +this.suit;
     }
+
 
 }
