@@ -5,16 +5,16 @@ import java.time.LocalDateTime;
 
 public class Game {
 
-    private final Player HUMAN_PLAYER;
-    private final Player COMPUTER_PLAYER;
+    //private final Player HUMAN_PLAYER;
+    //private final Player COMPUTER_PLAYER;
     private int turnNumber;
     private Timestamp timeStamp;
 
     public Game(String nameHumanPlayer) {
         this.turnNumber = 0;
         setTimeStampToNow();
-        this.HUMAN_PLAYER = new Player(nameHumanPlayer, 0, false);
-        this.COMPUTER_PLAYER = new Player("Computer", 0, true);
+       // this.HUMAN_PLAYER = new Player(nameHumanPlayer, 0, false);
+       // this.COMPUTER_PLAYER = new Player("Computer", 0, true);
     }
 
     public int getTurnNumber() {
@@ -33,12 +33,8 @@ public class Game {
         this.timeStamp = Timestamp.valueOf(LocalDateTime.now());
     }
 
-    public Player getHUMAN_PLAYER() {
-        return HUMAN_PLAYER;
-    }
+   // public Player getHUMAN_PLAYER() { return HUMAN_PLAYER;}
 
-    public Player getCOMPUTER_PLAYER() {
-        return COMPUTER_PLAYER;
-    }
+    //public Player getCOMPUTER_PLAYER() {return COMPUTER_PLAYER;}
 
 }
