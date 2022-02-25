@@ -5,7 +5,7 @@ public class Player {
     private final String NAME;
     private int score;
     private boolean isPlayerTurn;
-    Hand cards = new Hand();
+    Hand hands = new Hand();
 
 
     public Player(String NAME, int score, boolean isPlayerTurn){
@@ -15,19 +15,20 @@ public class Player {
     }
 
     public void dealCards(Deck deck){
-        cards.deal(deck);
+        hands.deal(deck);
     }
 
     protected void printCards(){
-        cards.printPlayerCards();
+        hands.printPlayerCards();
     }
-    protected void addCard(Card card){cards.addCard(card);}
+    protected void addCard(Card card){hands.addCard(card);}
     protected Card discardCard(int i){
-        Card card = cards.getCardAt(i);
-        cards.removeCard(i);
+        Card card = hands.getCardAt(i);
+        hands.removeCard(i);
         return card;
     }
-    protected Card getCardAt(int i){return cards.getCardAt(i);}
+    protected int getDeadWoodCount(){return hands.calculateDeadwood();}
+    protected Card getCardAt(int i){return hands.getCardAt(i);}
 
     public String getNAME() {
         return NAME;
