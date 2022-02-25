@@ -1,6 +1,9 @@
 package be.kdg.ginrummy;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Hand extends Deck {
     protected List<Card> updatedCardList;
