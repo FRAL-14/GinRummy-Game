@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Hand extends Deck {
     protected List<Card> updatedCardList;
-    protected List<Card> playerCards;
+    protected LinkedList<Card> playerCards;
     private int deadWoodCount = 0;
     private List<Card> meld;
 
@@ -70,6 +70,10 @@ public class Hand extends Deck {
 
     public void removeCard(int i) {
         playerCards.remove(i);
+    }
+
+    public Card removeLastCard() {
+        return playerCards.removeLast();
     }
 
     public void addCard(Card card) {
