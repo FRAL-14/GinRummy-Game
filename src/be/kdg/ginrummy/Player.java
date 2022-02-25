@@ -1,5 +1,7 @@
 package be.kdg.ginrummy;
 
+import java.util.Collections;
+
 public class Player {
 
     private final String NAME;
@@ -51,6 +53,9 @@ public class Player {
         isPlayerTurn = playerTurn;
     }
 
+    public void sortCards() {
+        hand.sortPlayerCards();
+    }
     public Hand getHand() {
         return hand;
     }
