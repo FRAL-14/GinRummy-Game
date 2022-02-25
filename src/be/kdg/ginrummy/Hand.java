@@ -10,15 +10,7 @@ public class Hand extends Deck {
     private List<Card> meld;
 
     public Hand(){}
-    public Hand(Deck deck) {
-        updatedCardList = new ArrayList<>(deck.getDeckOfCards());
-        playerCards = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            playerCards.add(deck.getCardAt(i));
-            updatedCardList.remove(0);
-        }
-        deck.setDeckOfCards(updatedCardList);
-    }
+
 
     public void deal(Deck deck){
         updatedCardList = new ArrayList<>(deck.getDeckOfCards());
@@ -31,6 +23,15 @@ public class Hand extends Deck {
     }
 
     public int calculateDeadwood(){
+
+		for (Card card : playerCards) {
+			if (!card.isInMeld()) {
+                deadWoodCount += card.getValue();
+			}
+            return deadWoodCount;
+		}
+
+
         /*
          * Are there 3 or more cards that has the same Rank?
          * YES-> Action 1. Add them to meld arrayList
@@ -42,6 +43,8 @@ public class Hand extends Deck {
          * add the values of the cards rank together */
         return 0;
     }
+
+
 
     public void printPlayerCards() { for (Card card : playerCards) { System.out.print(card + " - ");}}
     public void removeCard(int i){ playerCards.remove(i);}
