@@ -5,7 +5,7 @@ public class Player {
     private final String NAME;
     private int score;
     private boolean isPlayerTurn;
-    Hand cards=new Hand();
+    Hand cards = new Hand();
 
 
     public Player(String NAME, int score, boolean isPlayerTurn){
@@ -28,7 +28,6 @@ public class Player {
         return card;
     }
     protected Card getCardAt(int i){return cards.getCardAt(i);}
-
 
     public String getNAME() {
         return NAME;
