@@ -1,6 +1,8 @@
 package be.kdg.ginrummy;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Hand extends Deck {
     protected List<Card> updatedCardList;
@@ -22,27 +24,28 @@ public class Hand extends Deck {
         deck.setDeckOfCards(updatedCardList);
     }
 
-    public int calculateDeadwood(){
+    public int calculateDeadwood() {
         //Run: 3 or more cards of the same suit
         //Set: 3 or more cards of the same number
 
         //Run
-        for (Card card: playerCards){
-            if (Collections.frequency(playerCards, card.getValue())>3){
+        for (Card card : playerCards) {
+            if (Collections.frequency(playerCards, card.getValue()) > 3) {
                 card.setInMeld(true);
             }
         }
         //Set
-        for (Card card: playerCards){
-            if (Collections.frequency(playerCards, card.getSuit())>3){
+        for (Card card : playerCards) {
+            if (Collections.frequency(playerCards, card.getSuit()) > 3) {
 
                 card.setInMeld(true);
             }
         }
 
+        deadWoodCount = 0;
 
-		for (Card card : playerCards) {
-			if (!card.isInMeld()) {
+        for (Card card : playerCards) {
+            if (!card.isInMeld()) {
                 deadWoodCount += card.getValue();
             }
         }
@@ -80,4 +83,9 @@ public class Hand extends Deck {
     public List<Card> getPlayerCards() {
         return playerCards;
     }
+
+    public void sortPlayerCards() {
+        Collections.sort(playerCards);
+    }
+
 }
