@@ -1,47 +1,30 @@
 package be.kdg.ginrummy;
 
 public class Card {
-    public enum Rank {
-        ACE(1),TWO(2), THREE(3), FOUR(4), FIVE(5),
-        SIX(6), SEVEN(7), EIGHT(8), NINE(9),
-        TEN(10),
-        JACK(10), QUEEN(10), KING(10);
-        int value;
 
-        Rank(int value) { this.value = value; }
-        public int getValue() { return value; }
+    private final Suit SUIT;
+    private final Rank RANK;
+
+    public Card(Suit suit, Rank rank) {
+        SUIT = suit;
+        RANK = rank;
     }
 
-    public enum Suit {
-        SPADES("black"),
-        HEARTS("red"),
-        CLUBS("black"),
-        DIAMONDS("red");
-
-        private final String COLOUR;
-
-        Suit(String colour) {
-            this.COLOUR = colour;
-        }
-
-        public String getCOLOUR() {
-            return COLOUR;
-        }
+    public Suit getSUIT() {
+        return SUIT;
     }
 
-    private final Rank rank;
-    private final Suit suit;
-
-    public Card(Rank rank, Suit suit){
-        this.rank = rank;
-        this.suit = suit;
+    public Rank getRANK() {
+        return RANK;
     }
 
-    public Rank getRank() { return rank; }
-    public Suit getSuit() { return suit; }
-    public int getValue(){ return rank.getValue(); }
-
-    public String toString(){
-        return this.rank+ " of " +this.suit;
+    public int getVALUE() {
+        return RANK.getVALUE();
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s of %s", getRANK(), getSUIT());
+    }
+
 }
