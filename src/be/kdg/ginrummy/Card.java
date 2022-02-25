@@ -1,6 +1,6 @@
 package be.kdg.ginrummy;
 
-public class Card {
+public class Card implements Comparable<Card>{
 
     public enum Rank {
         ACE(1),TWO(2), THREE(3), FOUR(4), FIVE(5),
@@ -32,13 +32,17 @@ public class Card {
 
     private final Rank rank;
     private final Suit suit;
-    private boolean isInMeld;
+    private boolean isInMeld=false;
 
 
     public Card(Rank rank, Suit suit){
         this.rank = rank;
         this.suit = suit;
     }
+
+    @Override
+    public int compareTo(Card other) {
+         return this.getValue() - other.getValue();}
 
     public boolean isInMeld() { return isInMeld;}
     public void setInMeld(boolean isInMeld) { this.isInMeld = isInMeld;}
