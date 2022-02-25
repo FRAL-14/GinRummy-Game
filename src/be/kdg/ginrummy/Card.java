@@ -1,6 +1,6 @@
 package be.kdg.ginrummy;
 
-public class Card {
+public class Card implements Comparable<Card>{
 
     private final Rank rank;
     private final Suit suit;
@@ -75,4 +75,9 @@ public class Card {
             return COLOUR;
         }
     }
+    
+    @Override
+    public int compareTo(Card other) {
+         return this.getValue() - other.getValue();}
+
 }

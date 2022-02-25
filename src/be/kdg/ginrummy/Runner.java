@@ -18,9 +18,9 @@ public class Runner {
 
         Player playerTwo = new Player("Bear2",0,false);
         playerTwo.dealCards(deck);
-        //playerTwo.printCards();
-
-        //deck.print(); //the first 20 cards are gone
+        playerTwo.printCards();
+        System.out.println(playerTwo.getDeadWoodCount());//works
+        deck.print(); //the first 20 cards are gone
     }
 
     public static Game getGame() {

@@ -28,6 +28,7 @@ public class Player {
         hand.removeCard(i);
         return card;
     }
+    protected int getDeadWoodCount(){return hand.calculateDeadwood();}
     protected Card getCardAt(int i){return hand.getCardAt(i);}
 
     public String getNAME() {
