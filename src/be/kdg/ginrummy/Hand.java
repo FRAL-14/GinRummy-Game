@@ -23,26 +23,28 @@ public class Hand extends Deck {
     }
 
     public int calculateDeadwood(){
+        /*
+         * Are there 3 or more cards that has the same Rank?
+         * YES-> Action 1. Add them to meld arrayList, SET TO TRUE
+         * NO: Are there 3 or more cards that has the same suit?
+         * NO -> Action 2. nothing
+         * YES-> Are their rank in order, difference is 1?
+         * YES -> do Action 1.
+         * NO -> do Action 2.
+          */
+
 
 		for (Card card : playerCards) {
 			if (!card.isInMeld()) {
                 deadWoodCount += card.getValue();
 			}
-            return deadWoodCount;
 		}
 
-
-        /*
-         * Are there 3 or more cards that has the same Rank?
-         * YES-> Action 1. Add them to meld arrayList
-         * NO: Are there 3 or more cards that has the same suit?
-         * NO -> Action 2. Add nothing
-         * YES-> Are their rank in order, difference is 1?
-         * YES -> do Action 1.
-         * NO -> do Action 2.
-         * add the values of the cards rank together */
-        return 0;
+        return deadWoodCount;
     }
+
+    public void clear(){}
+    public int getCardCount() {return 0;}
 
 
 
@@ -53,5 +55,4 @@ public class Hand extends Deck {
     public List<Card> getPlayerCards() {
         return playerCards;
     }
-    public int getDeadWoodCount() { return deadWoodCount;}
 }
