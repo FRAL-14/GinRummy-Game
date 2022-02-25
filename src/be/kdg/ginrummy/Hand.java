@@ -1,7 +1,6 @@
 package be.kdg.ginrummy;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Hand extends Deck {
     protected List<Card> updatedCardList;
@@ -23,15 +22,22 @@ public class Hand extends Deck {
     }
 
     public int calculateDeadwood(){
-        /*
-         * Are there 3 or more cards that has the same Rank?
-         * YES-> Action 1. Add them to meld arrayList, SET TO TRUE
-         * NO: Are there 3 or more cards that has the same suit?
-         * NO -> Action 2. nothing
-         * YES-> Are their rank in order, difference is 1?
-         * YES -> do Action 1.
-         * NO -> do Action 2.
-          */
+        //Run: 3 or more cards of the same suit
+        //Set: 3 or more cards of the same number
+
+        //Run
+        for (Card card: playerCards){
+            if (Collections.frequency(playerCards, card.getValue())>3){
+                card.setInMeld(true);
+            }
+        }
+        //Set
+        for (Card card: playerCards){
+            if (Collections.frequency(playerCards, card.getSuit())>3){
+
+                card.setInMeld(true);
+            }
+        }
 
 
 		for (Card card : playerCards) {
@@ -41,6 +47,7 @@ public class Hand extends Deck {
 		}
 
         return deadWoodCount;
+
     }
 
     public void clear(){}
