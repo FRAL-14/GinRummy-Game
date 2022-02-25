@@ -33,6 +33,7 @@ public class Hand extends Deck {
          * NO -> do Action 2.
           */
 
+
 		for (Card card : playerCards) {
 			if (!card.isInMeld()) {
                 deadWoodCount += card.getValue();
@@ -41,6 +42,9 @@ public class Hand extends Deck {
 
         return deadWoodCount;
     }
+
+    public void clear(){}
+    public int getCardCount() {return 0;}
 
 
 
