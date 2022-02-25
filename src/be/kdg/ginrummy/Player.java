@@ -7,12 +7,20 @@ public class Player {
     private boolean isPlayerTurn;
     Hand cards;
 
+
+    public Player(String NAME, int score, boolean isPlayerTurn){
+        this.NAME = NAME;
+        this.score = score;
+        this.isPlayerTurn = isPlayerTurn;
+    }
+    //to be removed
     public Player(String NAME, int score, Deck deck, boolean isPlayerTurn) {
         this.NAME = NAME;
         this.score = score;
         this.isPlayerTurn = isPlayerTurn;
         this.cards = new Hand(deck);
     }
+
 
     protected void printCards(){
         cards.printPlayerCards();
