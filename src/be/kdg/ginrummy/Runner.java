@@ -20,7 +20,11 @@ public class Runner {
         playerTwo.dealCards(deck);
         playerTwo.printCards();
         System.out.println(playerTwo.getDeadWoodCount());//works
-        deck.print(); //the first 20 cards are gone
+//        deck.print(); //the first 20 cards are gone
+
+        playerTwo.getHand().sortPlayerCards();
+        playerTwo.printCards();
+        System.out.println(playerTwo.getDeadWoodCount());
     }
 
     public static Game getGame() {
