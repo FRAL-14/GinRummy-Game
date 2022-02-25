@@ -7,6 +7,8 @@ public class Game {
 
     private final Player HUMAN_PLAYER;
     private final Player COMPUTER_PLAYER;
+    private DiscardPile discardPile = new DiscardPile();
+    private Deck deck = new Deck();
     private int turnNumber;
     private Timestamp timeStamp;
 
@@ -25,6 +27,14 @@ public class Game {
         turnNumber++;
     }
 
+    public DiscardPile getDiscardPile() {
+        return discardPile;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
     public Timestamp getTimeStamp() {
         return timeStamp;
     }
@@ -39,6 +49,16 @@ public class Game {
 
     public Player getCOMPUTER_PLAYER() {
         return COMPUTER_PLAYER;
+    }
+
+    public void regularGameChecks() {
+        getHUMAN_PLAYER().getHand().sortPlayerCards();
+
+        if (getHUMAN_PLAYER().canKnock()) {
+            if (UI.askUserIfKnock()) {
+                discardPile.discardCard(getHUMAN_PLAYER().getHand().removeLastCard());
+            }
+        }
     }
 
 }

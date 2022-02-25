@@ -56,7 +56,7 @@ public class Player {
     }
 
     public boolean canKnock() {
-        return getHand().calculateDeadwood() <= 10;
+        return getHand().calculateDeadwood() <= 10; // change to 60 if you want to see the knock functionality
     }
 
 }
