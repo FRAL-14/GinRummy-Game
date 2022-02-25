@@ -5,7 +5,7 @@ public class Player {
     private final String NAME;
     private int score;
     private boolean isPlayerTurn;
-    Hand cards;
+    Hand cards=new Hand();
 
 
     public Player(String NAME, int score, boolean isPlayerTurn){
@@ -13,14 +13,10 @@ public class Player {
         this.score = score;
         this.isPlayerTurn = isPlayerTurn;
     }
-    //to be removed
-    public Player(String NAME, int score, Deck deck, boolean isPlayerTurn) {
-        this.NAME = NAME;
-        this.score = score;
-        this.isPlayerTurn = isPlayerTurn;
-        this.cards = new Hand(deck);
-    }
 
+    public void dealCards(Deck deck){
+        cards.deal(deck);
+    }
 
     protected void printCards(){
         cards.printPlayerCards();
