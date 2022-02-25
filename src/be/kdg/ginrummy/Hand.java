@@ -9,7 +9,18 @@ public class Hand extends Deck {
     private int deadWoodCount = 0;
     private List<Card> meld;
 
+    public Hand(){}
     public Hand(Deck deck) {
+        updatedCardList = new ArrayList<>(deck.getDeckOfCards());
+        playerCards = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            playerCards.add(deck.getCardAt(i));
+            updatedCardList.remove(0);
+        }
+        deck.setDeckOfCards(updatedCardList);
+    }
+
+    public void deal(Deck deck){
         updatedCardList = new ArrayList<>(deck.getDeckOfCards());
         playerCards = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
