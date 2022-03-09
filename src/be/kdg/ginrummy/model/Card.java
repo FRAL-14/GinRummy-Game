@@ -1,10 +1,11 @@
-package be.kdg.ginrummy;
+package be.kdg.ginrummy.model;
 
-public class Card implements Comparable<Card>{
+public class Card implements Comparable<Card> {
 
     private final Rank rank;
     private final Suit suit;
     private boolean isInMeld;
+
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
@@ -32,6 +33,11 @@ public class Card implements Comparable<Card>{
 
     public String toString() {
         return this.rank + " of " + this.suit;
+    }
+
+    @Override
+    public int compareTo(Card other) {
+        return this.getValue() - other.getValue();
     }
 
     public enum Rank {
@@ -75,9 +81,5 @@ public class Card implements Comparable<Card>{
             return COLOUR;
         }
     }
-    
-    @Override
-    public int compareTo(Card other) {
-         return this.getValue() - other.getValue();}
 
 }

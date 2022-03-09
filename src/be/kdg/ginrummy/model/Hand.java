@@ -1,6 +1,4 @@
-package be.kdg.ginrummy;
-
-
+package be.kdg.ginrummy.model;
 
 
 import java.util.Collections;

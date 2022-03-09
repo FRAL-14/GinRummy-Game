@@ -1,4 +1,9 @@
-package be.kdg.ginrummy;
+// Game class in view because it kind of acts like a presenter
+package be.kdg.ginrummy.view;
+
+import be.kdg.ginrummy.model.Deck;
+import be.kdg.ginrummy.model.DiscardPile;
+import be.kdg.ginrummy.model.Player;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -15,6 +20,8 @@ public class Game {
     public Game(String nameHumanPlayer) {
         this.turnNumber = 0;
         setTimeStampToNow();
+
+        // Making the players
         this.HUMAN_PLAYER = new Player(nameHumanPlayer, 0, false);
         this.COMPUTER_PLAYER = new Player("Computer", 0, true);
     }
@@ -51,6 +58,10 @@ public class Game {
         return COMPUTER_PLAYER;
     }
 
+    /**
+     * Sorts the player's hand and checks if a user can knock.
+     * Should be run after every move.
+     */
     public void regularGameChecks() {
         getHUMAN_PLAYER().getHand().sortPlayerCards();
 

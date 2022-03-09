@@ -1,4 +1,4 @@
-package be.kdg.ginrummy;
+package be.kdg.ginrummy.view;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -7,12 +7,12 @@ public class UI {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static String askUserInput() {
+    static String askUserInput() {
         System.out.print(" > ");
         return scanner.nextLine().toLowerCase(Locale.ROOT);
     }
 
-    public static boolean askUserIfKnock() {
+    static boolean askUserIfKnock() {
         System.out.println("Do you want to knock? (y/n)");
         String input;
         do {
@@ -23,7 +23,7 @@ public class UI {
             }
         } while (!"y".equals(input) && !"n".equals(input));
 
-        return "y".equals(input); 
+        return "y".equals(input);
     }
 
 }

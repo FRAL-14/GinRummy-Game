@@ -1,5 +1,7 @@
 package be.kdg.ginrummy;
 
+import be.kdg.ginrummy.view.Game;
+
 public class Runner {
 
     private static Game game;

@@ -1,4 +1,4 @@
-package be.kdg.ginrummy;
+package be.kdg.ginrummy.model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,17 +11,17 @@ public class DiscardPile {
         discardedCards = new LinkedList<>();
     }
 
-    protected void discardCard(Card card) {
+    public void discardCard(Card card) {
         discardedCards.add(card);
     }
 
-    protected void drawCardFor(Player player) {
+    public void drawCardFor(Player player) {
         size = discardedCards.size();
         player.addCard(discardedCards.get(size - 1));
         discardedCards.remove(size - 1);
     }
 
-    protected void printDiscardPile() {
+    public void printDiscardPile() {
         for (Card card : discardedCards) {
             System.out.print(card + " - ");
         }

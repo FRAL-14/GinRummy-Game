@@ -1,6 +1,4 @@
-package be.kdg.ginrummy;
-
-import java.util.Collections;
+package be.kdg.ginrummy.model;
 
 public class Player {
 
@@ -10,28 +8,37 @@ public class Player {
     private Hand hand = new Hand();
 
 
-    public Player(String NAME, int score, boolean isPlayerTurn){
+    public Player(String NAME, int score, boolean isPlayerTurn) {
         this.NAME = NAME;
         this.score = score;
         this.isPlayerTurn = isPlayerTurn;
     }
 
-    public void dealCards(Deck deck){
+    public void dealCards(Deck deck) {
         hand.deal(deck);
     }
 
-    protected void printCards(){
+    public void printCards() {
         hand.printPlayerCards();
     }
-    protected void addCard(Card card){
-        hand.addCard(card);}
-    protected Card discardCard(int i){
+
+    protected void addCard(Card card) {
+        hand.addCard(card);
+    }
+
+    protected Card discardCard(int i) {
         Card card = hand.getCardAt(i);
         hand.removeCard(i);
         return card;
     }
-    protected int getDeadWoodCount(){return hand.calculateDeadwood();}
-    protected Card getCardAt(int i){return hand.getCardAt(i);}
+
+    public int getDeadWoodCount() {
+        return hand.calculateDeadwood();
+    }
+
+    protected Card getCardAt(int i) {
+        return hand.getCardAt(i);
+    }
 
     public String getNAME() {
         return NAME;
@@ -56,6 +63,7 @@ public class Player {
     public void sortCards() {
         hand.sortPlayerCards();
     }
+
     public Hand getHand() {
         return hand;
     }
