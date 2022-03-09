@@ -63,11 +63,11 @@ public class Game {
      * Should be run after every move.
      */
     public void regularGameChecks() {
-        getHUMAN_PLAYER().getHand().sortPlayerCards();
+        getHUMAN_PLAYER().getHAND().sortPlayerCards();
 
         if (getHUMAN_PLAYER().canKnock()) {
             if (UI.askUserIfKnock()) {
-                DISCARD_PILE.discardCard(getHUMAN_PLAYER().getHand().removeLastCard());
+                DISCARD_PILE.discardCard(getHUMAN_PLAYER().getHAND().removeLastCard());
             }
         }
     }

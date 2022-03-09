@@ -4,8 +4,8 @@ public class Player {
 
     private final String NAME;
     private int score;
-    private boolean isPlayerTurn;
-    private Hand hand = new Hand();
+    private boolean isPlayerTurn; // Defines who begins the round and is the dealer
+    private final Hand HAND = new Hand(); // Can be final, as the hand itself doesn't change, but the cards do
 
 
     public Player(String NAME, int score, boolean isPlayerTurn) {
@@ -15,29 +15,29 @@ public class Player {
     }
 
     public void dealCards(Deck deck) {
-        hand.deal(deck);
+        HAND.deal(deck);
     }
 
     public void printCards() {
-        hand.printPlayerCards();
+        HAND.printPlayerCards();
     }
 
     protected void addCard(Card card) {
-        hand.addCard(card);
+        HAND.addCard(card);
     }
 
     protected Card discardCard(int i) {
-        Card card = hand.getCardAt(i);
-        hand.removeCard(i);
+        Card card = HAND.getCardAt(i);
+        HAND.removeCard(i);
         return card;
     }
 
     public int getDeadWoodCount() {
-        return hand.calculateDeadwood();
+        return HAND.calculateDeadwood();
     }
 
     protected Card getCardAt(int i) {
-        return hand.getCardAt(i);
+        return HAND.getCardAt(i);
     }
 
     public String getNAME() {
@@ -61,15 +61,15 @@ public class Player {
     }
 
     public void sortCards() {
-        hand.sortPlayerCards();
+        HAND.sortPlayerCards();
     }
 
-    public Hand getHand() {
-        return hand;
+    public Hand getHAND() {
+        return HAND;
     }
 
     public boolean canKnock() {
-        return getHand().calculateDeadwood() <= 10; // change to 60 if you want to see the knock functionality
+        return getHAND().calculateDeadwood() <= 10; // change to 60 if you want to see the knock functionality for now
     }
 
 }
