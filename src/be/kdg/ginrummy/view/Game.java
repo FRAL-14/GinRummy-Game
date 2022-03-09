@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 public class Game {
 
-    private final Player HUMAN_PLAYER;
-    private final Player COMPUTER_PLAYER;
-    private DiscardPile discardPile = new DiscardPile();
-    private Deck deck = new Deck();
+    private final Player HUMAN_PLAYER; // Can be final, as only 1 human player is needed for a game and doesn't change
+    private final Player COMPUTER_PLAYER; // Can be final, as only 1 CPU player is needed for a game and doesn't change
+    private final DiscardPile DISCARD_PILE = new DiscardPile(); // Can be final, as only 1 is needed and doesn't change, its cards can be changed
+    private final Deck DECK = new Deck(); // Can be final, as only 1 deck is needed for a game and doesn't change
     private int turnNumber;
     private Timestamp timeStamp;
 
@@ -34,12 +34,12 @@ public class Game {
         turnNumber++;
     }
 
-    public DiscardPile getDiscardPile() {
-        return discardPile;
+    public DiscardPile getDISCARD_PILE() {
+        return DISCARD_PILE;
     }
 
-    public Deck getDeck() {
-        return deck;
+    public Deck getDECK() {
+        return DECK;
     }
 
     public Timestamp getTimeStamp() {
@@ -67,7 +67,7 @@ public class Game {
 
         if (getHUMAN_PLAYER().canKnock()) {
             if (UI.askUserIfKnock()) {
-                discardPile.discardCard(getHUMAN_PLAYER().getHand().removeLastCard());
+                DISCARD_PILE.discardCard(getHUMAN_PLAYER().getHand().removeLastCard());
             }
         }
     }
