@@ -6,13 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Hand extends Deck {
-    protected List<Card> updatedCardList;
-    protected LinkedList<Card> playerCards;
+    private List<Card> updatedCardList;
+    private LinkedList<Card> playerCards;
     private int deadWoodCount = 0;
     private List<Card> meld;
 
-    public Hand() {
-    }
+    public Hand() {}
 
 
     public void deal(Deck deck) {
@@ -55,11 +54,10 @@ public class Hand extends Deck {
 
     }
 
-    public void clear() {
-    }
+    public void clear() { }
 
     public int getCardCount() {
-        return 0;
+        return playerCards.size();
     }
 
 
