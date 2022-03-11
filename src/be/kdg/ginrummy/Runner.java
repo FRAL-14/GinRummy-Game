@@ -24,15 +24,19 @@ public class Runner {
 //        System.out.println(playerTwo.getDeadWoodCount());//works
 //        deck.print(); //the first 20 cards are gone
 
-        game.getCOMPUTER_PLAYER().dealCards(game.getDECK());
-        game.getHUMAN_PLAYER().dealCards(game.getDECK());
-        game.getHUMAN_PLAYER().printCards();
-        System.out.println(game.getHUMAN_PLAYER().getDeadWoodCount());
+        game.printDeck();
 
-        game.regularGameChecks();
-        game.getHUMAN_PLAYER().printCards();
-        System.out.println(game.getHUMAN_PLAYER().getDeadWoodCount());
-        game.getDISCARD_PILE().printDiscardPile();
+       // game.getCOMPUTER_PLAYER().dealCards(game.getDECK());
+        //game.getHUMAN_PLAYER().dealCards(game.getDECK());
+        //game.getHUMAN_PLAYER().printCards();
+        //System.out.println(game.getHUMAN_PLAYER().getDeadWoodCount());
+
+        //System.out.println(game.getDECK().getDeckOfCards());
+
+       // game.regularGameChecks();
+       // game.getHUMAN_PLAYER().printCards();
+       // System.out.println(game.getHUMAN_PLAYER().getDeadWoodCount());
+       // game.getDISCARD_PILE().printDiscardPile();
     }
 
     public static Game getGame() {

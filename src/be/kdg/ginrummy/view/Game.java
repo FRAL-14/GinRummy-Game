@@ -13,7 +13,7 @@ public class Game {
     private final Player HUMAN_PLAYER; // Can be final, as only 1 human player is needed for a game and doesn't change
     private final Player COMPUTER_PLAYER; // Can be final, as only 1 CPU player is needed for a game and doesn't change
     private final DiscardPile DISCARD_PILE = new DiscardPile(); // Can be final, as only 1 is needed and doesn't change, its cards can be changed
-    private final Deck DECK = new Deck(); // Can be final, as only 1 deck is needed for a game and doesn't change
+    private Deck DECK = new Deck(); // Can be final, as only 1 deck is needed for a game and doesn't change
     private int turnNumber;
     private Timestamp timeStamp;
 
@@ -40,6 +40,9 @@ public class Game {
 
     public Deck getDECK() {
         return DECK;
+    }
+    public void printDeck(){
+        DECK.print();
     }
 
     public Timestamp getTimeStamp() {
