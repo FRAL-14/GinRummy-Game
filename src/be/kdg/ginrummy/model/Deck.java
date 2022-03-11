@@ -16,7 +16,7 @@ public class Deck {
         // Collections.shuffle(deck);
     }
 
-    protected void print() {
+    public void print() {
         for (Card card : deck) {
             System.out.println(card);
         }
@@ -37,4 +37,6 @@ public class Deck {
     protected void removeCard(int i) {
         deck.remove(i);
     }
+
+
 }
