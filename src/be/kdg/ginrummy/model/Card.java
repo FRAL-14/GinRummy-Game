@@ -2,13 +2,13 @@ package be.kdg.ginrummy.model;
 
 public class Card implements Comparable<Card> {
 
-    private final Rank rank;
-    private final Suit suit;
+    private final Rank RANK;
+    private final Suit SUIT;
     private boolean isInMeld;
 
     public Card(Rank rank, Suit suit) {
-        this.rank = rank;
-        this.suit = suit;
+        this.RANK = rank;
+        this.SUIT = suit;
     }
 
     public boolean isInMeld() {
@@ -20,19 +20,19 @@ public class Card implements Comparable<Card> {
     }
 
     public Rank getRank() {
-        return rank;
+        return RANK;
     }
 
     public Suit getSuit() {
-        return suit;
+        return SUIT;
     }
 
     public int getValue() {
-        return rank.getVALUE();
+        return RANK.getVALUE();
     }
 
     public String toString() {
-        return this.rank + " of " + this.suit;
+        return this.RANK + " of " + this.SUIT;
     }
 
     @Override
