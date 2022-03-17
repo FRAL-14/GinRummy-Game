@@ -11,7 +11,7 @@ public class UI {
      * Asks for basic input.
      * @return The input in lowercase.
      */
-    static String askUserInput() {
+    public static String askUserInput() {
         System.out.print(" > ");
         return SCANNER.nextLine().toLowerCase(Locale.ROOT);
     }
@@ -21,7 +21,7 @@ public class UI {
      * The user is asked if they want to knock.
      * @return Whether the player wants to knock.
      */
-    static boolean askUserIfKnock() {
+    public static boolean askUserIfKnock() {
         System.out.println("Do you want to knock? (y/n)");
         String input;
         do {

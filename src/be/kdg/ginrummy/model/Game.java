@@ -1,9 +1,7 @@
 // Game class in view because it kind of acts like a presenter
-package be.kdg.ginrummy.view;
+package be.kdg.ginrummy.model;
 
-import be.kdg.ginrummy.model.Deck;
-import be.kdg.ginrummy.model.DiscardPile;
-import be.kdg.ginrummy.model.Player;
+import be.kdg.ginrummy.view.UI;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -41,7 +39,8 @@ public class Game {
     public Deck getDECK() {
         return DECK;
     }
-    public void printDeck(){
+
+    public void printDeck() {
         DECK.print();
     }
 
