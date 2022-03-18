@@ -69,6 +69,7 @@ public class Game {
         if (getHUMAN_PLAYER().canKnock()) {
             if (UI.askUserIfKnock()) {
                 DISCARD_PILE.discardCard(getHUMAN_PLAYER().getHAND().removeLastCard());
+                endGame();
             }
         }
     }
@@ -96,6 +97,20 @@ public class Game {
         } else {
             newPoints = computerPoints - humanPoints;
             getHUMAN_PLAYER().addToScore(newPoints);
+        }
+    }
+
+    public void playNormalTurn(Player player) {
+        // TODO: replace player with player form the Session
+
+        if (UI.askUserIfTakeUpCard()) {
+            getDISCARD_PILE().drawCardFor(player);
+            regularGameChecks();
+            UI.askUserToDiscardCard(player, player.getCardAt(player.getHAND().getCardCount() - 1));
+        } else {
+            getDECK().drawCardFor(player);
+            regularGameChecks();
+            UI.askUserToDiscardCard(player, null);
         }
     }
 

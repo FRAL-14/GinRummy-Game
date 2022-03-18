@@ -1,5 +1,7 @@
 package be.kdg.ginrummy.model;
 
+import java.util.Locale;
+
 public class Card implements Comparable<Card> {
 
     private final Rank RANK;
@@ -63,6 +65,11 @@ public class Card implements Comparable<Card> {
         public int getVALUE() {
             return VALUE;
         }
+
+        @Override
+        public String toString() {
+            return name().toLowerCase(Locale.ROOT);
+        }
     }
 
     public enum Suit {
@@ -79,6 +86,11 @@ public class Card implements Comparable<Card> {
 
         public String getCOLOUR() {
             return COLOUR;
+        }
+
+        @Override
+        public String toString() {
+            return name().toLowerCase(Locale.ROOT);
         }
     }
 
