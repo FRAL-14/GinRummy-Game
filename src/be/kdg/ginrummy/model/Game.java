@@ -1,4 +1,3 @@
-// Game class in view because it kind of acts like a presenter
 package be.kdg.ginrummy.model;
 
 import be.kdg.ginrummy.view.UI;
@@ -83,6 +82,20 @@ public class Game {
         } else {
             getHUMAN_PLAYER().setIsPlayerTurn(true);
             getCOMPUTER_PLAYER().setIsPlayerTurn(false);
+        }
+    }
+
+    public void endGame() {
+        int humanPoints = getHUMAN_PLAYER().getDeadWoodCount();
+        int computerPoints = getCOMPUTER_PLAYER().getDeadWoodCount();
+        int newPoints = 0;
+
+        if (humanPoints > computerPoints) {
+            newPoints = humanPoints - computerPoints;
+            getCOMPUTER_PLAYER().addToScore(newPoints);
+        } else {
+            newPoints = computerPoints - humanPoints;
+            getHUMAN_PLAYER().addToScore(newPoints);
         }
     }
 
