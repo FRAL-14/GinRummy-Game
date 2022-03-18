@@ -74,4 +74,16 @@ public class Game {
         }
     }
 
+    public void switchTurn() {
+        // TODO: create new Session
+
+        if (getHUMAN_PLAYER().getIsPlayerTurn()) {
+            getHUMAN_PLAYER().setIsPlayerTurn(false);
+            getCOMPUTER_PLAYER().setIsPlayerTurn(true);
+        } else {
+            getHUMAN_PLAYER().setIsPlayerTurn(true);
+            getCOMPUTER_PLAYER().setIsPlayerTurn(false);
+        }
+    }
+
 }
