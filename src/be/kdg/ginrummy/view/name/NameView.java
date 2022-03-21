@@ -1,2 +1,4 @@
-package be.kdg.ginrummy.view.Name;public class NameView {
+package be.kdg.ginrummy.view.name;
+
+public class NameView {
 }

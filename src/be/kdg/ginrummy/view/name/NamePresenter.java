@@ -1,2 +1,5 @@
-package be.kdg.ginrummy.view.Name;public class NamePresenter {
+package be.kdg.ginrummy.view.name;
+
+public class NamePresenter {
+
 }
