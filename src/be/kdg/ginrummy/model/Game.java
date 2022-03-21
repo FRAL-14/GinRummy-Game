@@ -64,6 +64,7 @@ public class Game {
      * Sorts the player's hand and checks if a user can knock.
      * Should be run after every move.
      */
+
     public void regularGameChecks() {
         getHUMAN_PLAYER().getHAND().sortPlayerCards();
 
