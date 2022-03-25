@@ -40,9 +40,9 @@ public class Game {
         return DECK;
     }
 
-    public void printDeck() {
-        DECK.print();
-    }
+    /*public void printDeck() {
+        DECK.printDeck();
+    }*/
 
     public Timestamp getTimeStamp() {
         return timeStamp;
@@ -70,7 +70,7 @@ public class Game {
 
         if (getHUMAN_PLAYER().canKnock()) {
             if (UI.askUserIfKnock()) {
-                DISCARD_PILE.discardCard(getHUMAN_PLAYER().getHAND().removeLastCard());
+                DISCARD_PILE.addCard(getHUMAN_PLAYER().getHAND().removeLastCard());
             }
         }
     }

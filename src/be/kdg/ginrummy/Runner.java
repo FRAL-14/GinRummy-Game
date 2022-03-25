@@ -1,6 +1,9 @@
 package be.kdg.ginrummy;
 
+import be.kdg.ginrummy.model.Deck;
+import be.kdg.ginrummy.model.DiscardPile;
 import be.kdg.ginrummy.model.Game;
+import be.kdg.ginrummy.model.Player;
 import be.kdg.ginrummy.view.home.HomePresenter;
 import be.kdg.ginrummy.view.home.HomeView;
 import javafx.application.Application;

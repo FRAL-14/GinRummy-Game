@@ -47,7 +47,6 @@ public class Hand extends Deck {
             }
         }
         return deadWoodCount;
-
     }
 
 
@@ -75,7 +74,7 @@ public class Hand extends Deck {
         playerCards.add(card);
     }
 
-    protected Card getCardAt(int i) {
+    public Card getCardAt(int i) {
         return playerCards.get(i);
     }
 
