@@ -2,7 +2,7 @@ package be.kdg.ginrummy.model;
 
 public class Player {
 
-    private final String NAME;
+    private String NAME;
     private int score;
     private boolean isPlayerTurn; // Defines who begins the round and is the dealer
     private final Hand HAND = new Hand(); // Can be final, as the hand itself doesn't change, but the cards do
@@ -43,6 +43,9 @@ public class Player {
     public String getNAME() {
         return NAME;
     }
+    public void setNAME(String name) {
+        this.NAME = name;
+    }
 
     public int getScore() {
         return score;
@@ -67,6 +70,7 @@ public class Player {
     public Hand getHAND() {
         return HAND;
     }
+
 
     public boolean canKnock() {
         return getHAND().calculateDeadwood() <= 10; // change to 60 if you want to see the knock functionality for now
