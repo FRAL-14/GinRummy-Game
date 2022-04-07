@@ -24,11 +24,10 @@ public class Runner extends Application {
         HomePresenter homePresenter = new HomePresenter(model, homeView);
 
         primaryStage.setTitle("Gin Rummy");
-        primaryStage.setMinWidth(200);
-        primaryStage.setMinHeight(220);
+        primaryStage.setMinWidth(HomeView.HOME_WIDTH);
+        primaryStage.setMinHeight(HomeView.HOME_HEIGHT);
 
         primaryStage.setScene(new Scene(homeView));
-        homePresenter.addWindowEventHandlers();
         primaryStage.show();
     }
 

@@ -14,17 +14,17 @@ public class Player {
         this.isPlayerTurn = isPlayerTurn;
     }
 
-    /*public void dealCards(Deck deck) {
+    public void dealCards(Deck deck) {
         HAND.deal(deck);
-    }*/
+    }
 
-   /* public void printCards() {
+    public void printCards() {
         HAND.printPlayerCards();
-    }*/
+    }
 
-   /* protected void addCard(Card card) {
+    protected void addCard(Card card) {
         HAND.addCard(card);
-    }*/
+    }
 
     protected Card discardCard(int i) {
         Card card = HAND.getCardAt(i);
