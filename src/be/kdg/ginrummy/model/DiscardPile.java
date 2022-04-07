@@ -11,13 +11,13 @@ public class DiscardPile {
         discardedCards = new LinkedList<>();
     }
 
-    public void discardCard(Card card) {
+    public void addCard(Card card) {
         discardedCards.add(card);
     }
 
     public void drawCardFor(Player player) {
         size = discardedCards.size();
-        player.addCard(discardedCards.get(size - 1));
+        player.getHAND().addCard(discardedCards.get(size - 1));
         discardedCards.remove(size - 1);
     }
 

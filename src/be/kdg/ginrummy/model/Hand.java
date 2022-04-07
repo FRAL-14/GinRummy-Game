@@ -37,24 +37,19 @@ public class Hand extends Deck {
         //Set
         for (Card card : playerCards) {
             if (Collections.frequency(playerCards, card.getSuit()) > 3) {
-
                 card.setInMeld(true);
             }
         }
-
         deadWoodCount = 0;
-
         for (Card card : playerCards) {
             if (!card.isInMeld()) {
                 deadWoodCount += card.getValue();
             }
         }
-
         return deadWoodCount;
-
     }
 
-    public void clear() { }
+
 
     public int getCardCount() {
         return playerCards.size();
@@ -79,7 +74,7 @@ public class Hand extends Deck {
         playerCards.add(card);
     }
 
-    protected Card getCardAt(int i) {
+    public Card getCardAt(int i) {
         return playerCards.get(i);
     }
 
