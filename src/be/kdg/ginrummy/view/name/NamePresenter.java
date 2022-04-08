@@ -1,18 +1,32 @@
 package be.kdg.ginrummy.view.name;
 
 import be.kdg.ginrummy.model.Game;
+import be.kdg.ginrummy.model.Player;
+import be.kdg.ginrummy.view.play.GamePresenter;
+import be.kdg.ginrummy.view.play.GameView;
 
 public class NamePresenter {
     private final NameView view;
-    private final Game model;
+    private  Game gameModel;
+    private Player model;
+    private GameView gameView;
 
-    public NamePresenter(NameView view, Game game) {
+
+
+    public NamePresenter(Player model, NameView view) {
+        this.model = model;
         this.view = view;
-        this.model = game;
     }
     private void addEventHandlers() {
-        model.getHUMAN_PLAYER().setNAME(view.textField.getText());
-        //model.setPlayerName(view.textField.getText());
+        view.getStartGameButton().setOnAction(e->{
+            startGame();
+        });
+    }
+    private void startGame(){
+        gameView = new GameView();
+        GamePresenter gamePresenter = new GamePresenter(gameModel, gameView);
+        view.getScene().setRoot(gameView);
     }
     private void updateView() {}
+    private void savePlayerName(){ }
 }
