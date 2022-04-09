@@ -1,14 +1,15 @@
 package be.kdg.ginrummy.view.statistics;
 
 import be.kdg.ginrummy.model.Game;
+import be.kdg.ginrummy.model.GameStatistics;
 
 public class StatisticsPresenter {
     //private attributes
 
-    private Game model;
+    private GameStatistics model;
     private StatisticsView view;
 
-    public StatisticsPresenter(Game model, StatisticsView view) {
+    public StatisticsPresenter(GameStatistics model, StatisticsView view) {
         this.model = model;
         this.view=view;
         addEventHandlers();

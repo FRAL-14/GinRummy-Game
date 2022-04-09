@@ -1,15 +1,19 @@
 package be.kdg.ginrummy.view.home;
 
 import be.kdg.ginrummy.model.Game;
+import be.kdg.ginrummy.model.GameStatistics;
 import be.kdg.ginrummy.model.Player;
 import be.kdg.ginrummy.view.name.NamePresenter;
 import be.kdg.ginrummy.view.name.NameView;
+import be.kdg.ginrummy.view.statistics.StatisticsPresenter;
+import be.kdg.ginrummy.view.statistics.StatisticsView;
 import javafx.stage.Window;
 
 public class HomePresenter {
 
     private final Game MODEL;
     private Player playerModel;
+    private GameStatistics gameStatisticsModel;
     private final HomeView VIEW;
 
 
@@ -29,6 +33,10 @@ public class HomePresenter {
         {
             nameInput();
         });
+
+        this.VIEW.getStatisticsButton().setOnAction(e->{
+            statisticsScreen();
+        });
     }
 
     private void updateView() {
@@ -39,11 +47,17 @@ public class HomePresenter {
         Window window = VIEW.getScene().getWindow();
         // add event handlers to window
     }
-    //method for transfering to name input screen
+
+    //methods for new screens
     private void nameInput(){
         NameView nameView = new NameView();
         NamePresenter namePresenter = new NamePresenter(playerModel, nameView);
         VIEW.getScene().setRoot(nameView);
+    }
+    private void statisticsScreen(){
+        StatisticsView statisticsView = new StatisticsView();
+        StatisticsPresenter statisticsPresenter = new StatisticsPresenter(gameStatisticsModel, statisticsView);
+        VIEW.getScene().setRoot(statisticsView);
     }
 
 }

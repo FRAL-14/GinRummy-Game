@@ -1,6 +1,8 @@
 package be.kdg.ginrummy.view.statistics;
 
-public class StatisticsView {
+import javafx.scene.layout.BorderPane;
+
+public class StatisticsView extends BorderPane {
 
     public StatisticsView() {
         initialiseNodes();
