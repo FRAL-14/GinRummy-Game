@@ -6,12 +6,8 @@ import be.kdg.ginrummy.model.Player;
 import be.kdg.ginrummy.model.ViewRules;
 import be.kdg.ginrummy.view.name.NamePresenter;
 import be.kdg.ginrummy.view.name.NameView;
-import be.kdg.ginrummy.view.rules.RulesView;
 import be.kdg.ginrummy.view.statistics.StatisticsPresenter;
 import be.kdg.ginrummy.view.statistics.StatisticsView;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class HomePresenter {

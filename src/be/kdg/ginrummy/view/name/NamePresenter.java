@@ -7,10 +7,7 @@ import be.kdg.ginrummy.view.home.HomePresenter;
 import be.kdg.ginrummy.view.home.HomeView;
 import be.kdg.ginrummy.view.play.GamePresenter;
 import be.kdg.ginrummy.view.play.GameView;
-import be.kdg.ginrummy.view.rules.RulesView;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 
 public class NamePresenter {
