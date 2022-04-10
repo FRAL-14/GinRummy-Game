@@ -61,4 +61,5 @@ public class NameView extends VBox {
     public MenuItem getRulesMenuItem() {
         return rules;
     }
+
 }

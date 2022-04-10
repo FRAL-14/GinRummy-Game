@@ -10,6 +10,7 @@ import be.kdg.ginrummy.view.play.GameView;
 
 
 
+
 public class NamePresenter {
     private final NameView view;
     private  Game gameModel;

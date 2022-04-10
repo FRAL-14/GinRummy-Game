@@ -9,6 +9,9 @@ import javafx.scene.layout.VBox;
 
 public class HomeView extends BorderPane {
 
+    public static final int HOME_WIDTH = 200;
+    public static final int HOME_HEIGHT = 220;
+
     private VBox vBox;
     private Label titleLabel;
     private Button playButton;

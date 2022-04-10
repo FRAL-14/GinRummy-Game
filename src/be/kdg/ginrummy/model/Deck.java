@@ -38,5 +38,9 @@ public class Deck {
         deck.remove(i);
     }
 
+    public void drawCardFor(Player player) {
+        player.addCard(getCardAt(0));
+        removeCard(0);
+    }
 
 }

@@ -15,6 +15,7 @@ public class Player {
     }
 
 
+
     protected Card discardCard(int i) {
         Card card = HAND.getCardAt(i);
         HAND.removeCard(i);
@@ -33,8 +34,8 @@ public class Player {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void addToScore(int score) {
+        this.score += score;
     }
 
     public boolean getIsPlayerTurn() {

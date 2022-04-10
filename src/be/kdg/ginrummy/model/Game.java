@@ -1,4 +1,3 @@
-// Game class in view because it kind of acts like a presenter
 package be.kdg.ginrummy.model;
 
 import be.kdg.ginrummy.view.UI;
@@ -74,7 +73,48 @@ public class Game {
         if (getHUMAN_PLAYER().canKnock()) {
             if (UI.askUserIfKnock()) {
                 DISCARD_PILE.addCard(getHUMAN_PLAYER().getHAND().removeLastCard());
+                endGame();
             }
+        }
+    }
+
+    public void switchTurn() {
+        // TODO: create new Session
+
+        if (getHUMAN_PLAYER().getIsPlayerTurn()) {
+            getHUMAN_PLAYER().setIsPlayerTurn(false);
+            getCOMPUTER_PLAYER().setIsPlayerTurn(true);
+        } else {
+            getHUMAN_PLAYER().setIsPlayerTurn(true);
+            getCOMPUTER_PLAYER().setIsPlayerTurn(false);
+        }
+    }
+
+    public void endGame() {
+        int humanPoints = getHUMAN_PLAYER().getDeadWoodCount();
+        int computerPoints = getCOMPUTER_PLAYER().getDeadWoodCount();
+        int newPoints = 0;
+
+        if (humanPoints > computerPoints) {
+            newPoints = humanPoints - computerPoints;
+            getCOMPUTER_PLAYER().addToScore(newPoints);
+        } else {
+            newPoints = computerPoints - humanPoints;
+            getHUMAN_PLAYER().addToScore(newPoints);
+        }
+    }
+
+    public void playNormalTurn(Player player) {
+        // TODO: replace player with player form the Session
+
+        if (UI.askUserIfTakeUpCard()) {
+            getDISCARD_PILE().drawCardFor(player);
+            regularGameChecks();
+            UI.askUserToDiscardCard(player, player.getCardAt(player.getHAND().getCardCount() - 1));
+        } else {
+            getDECK().drawCardFor(player);
+            regularGameChecks();
+            UI.askUserToDiscardCard(player, null);
         }
     }
 
