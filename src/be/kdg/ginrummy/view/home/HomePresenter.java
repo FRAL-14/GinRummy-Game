@@ -3,6 +3,7 @@ package be.kdg.ginrummy.view.home;
 import be.kdg.ginrummy.model.Game;
 import be.kdg.ginrummy.model.GameStatistics;
 import be.kdg.ginrummy.model.Player;
+import be.kdg.ginrummy.model.ViewRules;
 import be.kdg.ginrummy.view.name.NamePresenter;
 import be.kdg.ginrummy.view.name.NameView;
 import be.kdg.ginrummy.view.rules.RulesView;
@@ -70,14 +71,8 @@ public class HomePresenter {
     }
 
     private void rulesScreen(){
-        RulesView rulesView = new RulesView();
-        Stage helpStage = new Stage();
-        helpStage.initOwner(VIEW.getScene().getWindow());
-        helpStage.initModality(Modality.APPLICATION_MODAL);
-        helpStage.setScene(new Scene(rulesView));
-        helpStage.setX(VIEW.getScene().getWindow().getX());
-        helpStage.setY(VIEW.getScene().getWindow().getY());
-        helpStage.showAndWait();
+        ViewRules.viewRules(VIEW.getScene());
+
     }
 
 }
