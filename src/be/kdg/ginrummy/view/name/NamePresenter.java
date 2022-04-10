@@ -16,6 +16,8 @@ public class NamePresenter {
     public NamePresenter(Player model, NameView view) {
         this.model = model;
         this.view = view;
+        addEventHandlers();
+        updateView();
     }
     private void addEventHandlers() {
         view.getStartGameButton().setOnAction(e->{
@@ -28,5 +30,5 @@ public class NamePresenter {
         view.getScene().setRoot(gameView);
     }
     private void updateView() {}
-    private void savePlayerName(){ }
+    private void savePlayerName(){}
 }
