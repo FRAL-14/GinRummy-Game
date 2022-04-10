@@ -21,7 +21,7 @@ public class GamePresenter {
         });
     }
     private void updateView(){
-        // fills the view with model data
+
     }
     //methods for event handlers
     public void displayRulesScreen() {

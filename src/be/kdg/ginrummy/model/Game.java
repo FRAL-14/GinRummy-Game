@@ -22,6 +22,12 @@ public class Game {
         // Making the players
         this.HUMAN_PLAYER = new Player(nameHumanPlayer, 0, false);
         this.COMPUTER_PLAYER = new Player("Computer", 0, true);
+
+        dealCards();
+    }
+
+    public void dealCards(){
+        HUMAN_PLAYER.getHAND().deal(DECK);
     }
 
     public int getTurnNumber() {
@@ -40,9 +46,6 @@ public class Game {
         return DECK;
     }
 
-    /*public void printDeck() {
-        DECK.printDeck();
-    }*/
 
     public Timestamp getTimeStamp() {
         return timeStamp;
