@@ -5,8 +5,12 @@ import be.kdg.ginrummy.model.GameStatistics;
 import be.kdg.ginrummy.model.Player;
 import be.kdg.ginrummy.view.name.NamePresenter;
 import be.kdg.ginrummy.view.name.NameView;
+import be.kdg.ginrummy.view.rules.RulesView;
 import be.kdg.ginrummy.view.statistics.StatisticsPresenter;
 import be.kdg.ginrummy.view.statistics.StatisticsView;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class HomePresenter {
@@ -37,6 +41,11 @@ public class HomePresenter {
         this.VIEW.getStatisticsButton().setOnAction(e->{
             statisticsScreen();
         });
+
+        this.VIEW.getHelpButton().setOnAction(e->{
+            rulesScreen();
+        });
+
     }
 
     private void updateView() {
@@ -58,6 +67,17 @@ public class HomePresenter {
         StatisticsView statisticsView = new StatisticsView();
         StatisticsPresenter statisticsPresenter = new StatisticsPresenter(gameStatisticsModel, statisticsView);
         VIEW.getScene().setRoot(statisticsView);
+    }
+
+    private void rulesScreen(){
+        RulesView rulesView = new RulesView();
+        Stage helpStage = new Stage();
+        helpStage.initOwner(VIEW.getScene().getWindow());
+        helpStage.initModality(Modality.APPLICATION_MODAL);
+        helpStage.setScene(new Scene(rulesView));
+        helpStage.setX(VIEW.getScene().getWindow().getX());
+        helpStage.setY(VIEW.getScene().getWindow().getY());
+        helpStage.showAndWait();
     }
 
 }
