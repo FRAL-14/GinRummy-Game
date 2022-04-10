@@ -69,7 +69,7 @@ public class Card implements Comparable<Card> {
         SPADE,
         HEART,
         CLUB,
-        DIAMOND;
+        DIAMOND; 
     }
 
 }
