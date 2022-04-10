@@ -91,8 +91,8 @@ public class Game {
     }
 
     public void endGame() {
-        int humanPoints = getHUMAN_PLAYER().getDeadWoodCount();
-        int computerPoints = getCOMPUTER_PLAYER().getDeadWoodCount();
+        int humanPoints = getHUMAN_PLAYER().getHAND().calculateDeadwood();
+        int computerPoints = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
         int newPoints = 0;
 
         if (humanPoints > computerPoints) {
@@ -110,7 +110,7 @@ public class Game {
         if (UI.askUserIfTakeUpCard()) {
             getDISCARD_PILE().drawCardFor(player);
             regularGameChecks();
-            UI.askUserToDiscardCard(player, player.getCardAt(player.getHAND().getCardCount() - 1));
+            UI.askUserToDiscardCard(player, player.getHAND().getCardAt(player.getHAND().getCardCount() - 1));
         } else {
             getDECK().drawCardFor(player);
             regularGameChecks();
