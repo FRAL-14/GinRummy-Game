@@ -39,7 +39,7 @@ public class Deck {
     }
 
     public void drawCardFor(Player player) {
-        player.addCard(getCardAt(0));
+        player.getHAND().addCard(getCardAt(0));
         removeCard(0);
     }
 

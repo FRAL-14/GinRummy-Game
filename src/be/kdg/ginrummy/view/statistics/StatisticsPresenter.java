@@ -6,7 +6,6 @@ import be.kdg.ginrummy.view.home.HomePresenter;
 import be.kdg.ginrummy.view.home.HomeView;
 
 public class StatisticsPresenter {
-<<<<<<< HEAD
     //private attributes
     private GameStatistics model;
     private StatisticsView view;
