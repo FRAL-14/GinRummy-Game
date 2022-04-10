@@ -1,9 +1,9 @@
 package be.kdg.ginrummy.view.name;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class NameView extends VBox {
@@ -11,6 +11,12 @@ public class NameView extends VBox {
     private Label label;
     private TextField textField;
     private Button startGameButton;
+
+    //menu attributes
+    private MenuBar menuBar;
+    private Menu menu;
+    private MenuItem home;
+    private MenuItem rules;
 
     public NameView() {
         initialiseNodes();
@@ -21,8 +27,24 @@ public class NameView extends VBox {
         textField = new TextField();
         label = new Label("What is your name? ");
         startGameButton = new Button("Start Game");
+
+        menuBar = new MenuBar();
+        menu = new Menu("Menu");
+
+        home = new MenuItem("Home");
+        home.setGraphic(new ImageView(new Image("/icons/home.png", 16, 16, false, false)));
+
+        rules = new MenuItem("Rules");
+        rules.setGraphic(new ImageView(new Image("/icons/rules.png", 16, 16, false, false)));
     }
+
     private void layoutNodes() {
+        //menu
+        menu.getItems().add(home);
+        menu.getItems().add(rules);
+        menuBar.getMenus().add(menu);
+        getChildren().add(menuBar);
+
         getChildren().add(label);
         getChildren().add(textField);
         getChildren().add(startGameButton);
@@ -33,4 +55,10 @@ public class NameView extends VBox {
     public Label getLabel() { return label; }
     public TextField getTextField() { return textField;}
     public Button getStartGameButton() { return startGameButton; }
+    public MenuItem getHomeMenuItem() {
+        return home;
+    }
+    public MenuItem getRulesMenuItem() {
+        return rules;
+    }
 }
