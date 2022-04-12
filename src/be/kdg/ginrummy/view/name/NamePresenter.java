@@ -7,8 +7,7 @@ import be.kdg.ginrummy.view.home.HomePresenter;
 import be.kdg.ginrummy.view.home.HomeView;
 import be.kdg.ginrummy.view.play.GamePresenter;
 import be.kdg.ginrummy.view.play.GameView;
-
-
+import javafx.stage.Stage;
 
 
 public class NamePresenter {
@@ -41,6 +40,10 @@ public class NamePresenter {
         gameView = new GameView();
         GamePresenter gamePresenter = new GamePresenter(gameModel, gameView);
         view.getScene().setRoot(gameView);
+        Stage stage = (Stage) gameView.getScene().getWindow();
+        stage.setMinWidth(940);
+        stage.setMinHeight(620);
+        stage.centerOnScreen();
     }
     private void returnToHomeScreen(){
         HomeView homeView = new HomeView();
