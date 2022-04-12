@@ -169,4 +169,28 @@ public class GameView extends BorderPane {
 		return (ImageView) computerCards.getChildren().get(numberOfCard);
 	}
 
+	TextField getComputerPoints() {
+		return computerPoints;
+	}
+
+	TextField getHumanPoints() {
+		return humanPoints;
+	}
+
+	TextField getTimeElapsed() {
+		return timeElapsed;
+	}
+
+	TextField getDeadwoodCount() {
+		return deadwoodCount;
+	}
+
+	ImageView getStackPile() {
+		return stackPile;
+	}
+
+	ImageView getDiscardPile() {
+		return discardPile;
+	}
+
 }
