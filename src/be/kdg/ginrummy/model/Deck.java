@@ -43,4 +43,9 @@ public class Deck {
         removeCard(0);
     }
 
+    public void drawCardFor(DiscardPile discardPile) {
+        discardPile.addCard(getCardAt(0));
+        removeCard(0);
+    }
+
 }

@@ -35,7 +35,7 @@ public class GamePresenter {
 				VIEW.setHandImage(i, toResourceName(modelHumanHand.getCardAt(i)));
 			}
 		}
-//		VIEW.setDiscardPileImage(toResourceName(MODEL.getDISCARD_PILE().getNextCard()));
+		VIEW.setDiscardPileImage(toResourceName(MODEL.getDISCARD_PILE().getNextCard()));
 	}
 
 	//methods for event handlers

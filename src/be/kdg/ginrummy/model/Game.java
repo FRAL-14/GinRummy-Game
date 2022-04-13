@@ -27,6 +27,7 @@ public class Game {
 
     public void dealCards(){
         HUMAN_PLAYER.getHAND().deal(DECK);
+        getDECK().drawCardFor(DISCARD_PILE);
     }
 
     public int getTurnNumber() {
