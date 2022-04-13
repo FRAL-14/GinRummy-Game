@@ -7,11 +7,10 @@ import be.kdg.ginrummy.view.home.HomeView;
 
 public class StatisticsPresenter {
     //private attributes
-    private GameStatistics model;
     private StatisticsView view;
-    private Game modelGame;
+    private Game model;
 
-    public StatisticsPresenter(GameStatistics model, StatisticsView view) {
+    public StatisticsPresenter(Game model, StatisticsView view) {
         this.model = model;
         this.view=view;
         addEventHandlers();
@@ -30,7 +29,7 @@ public class StatisticsPresenter {
     //methods for event handlers
     private void returnToHomeScreen(){
         HomeView homeView = new HomeView();
-        HomePresenter homePresenter = new HomePresenter(modelGame, homeView);
+        HomePresenter homePresenter = new HomePresenter(model, homeView);
         view.getScene().setRoot(homeView);
     }
 

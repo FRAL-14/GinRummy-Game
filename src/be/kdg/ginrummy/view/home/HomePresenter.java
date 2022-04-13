@@ -62,7 +62,7 @@ public class HomePresenter {
     }
     private void statisticsScreen(){
         StatisticsView statisticsView = new StatisticsView();
-        StatisticsPresenter statisticsPresenter = new StatisticsPresenter(gameStatisticsModel, statisticsView);
+        StatisticsPresenter statisticsPresenter = new StatisticsPresenter(MODEL, statisticsView);
         VIEW.getScene().setRoot(statisticsView);
     }
 

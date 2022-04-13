@@ -66,10 +66,6 @@ public class GameView extends BorderPane {
 
 		computerCards = new HBox(OVERLAP);
 		this.addCards(computerCards);
-		for (int i = 0; i < 10; i++) {
-			ImageView card = (ImageView) computerCards.getChildren().get(i);
-			card.setImage(BACKSIDE_CARD);
-		}
 
 		stackPile = new ImageView(BACKSIDE_CARD);
 		stackPile.setFitWidth(IMAGE_WIDTH);
@@ -150,7 +146,7 @@ public class GameView extends BorderPane {
 
 	private void addCards(HBox box) {
 		for (int i = 0; i < 11; i++) {
-			ImageView card = new ImageView(TEST_CARD);
+			ImageView card = new ImageView(BACKSIDE_CARD);
 			card.setFitWidth(IMAGE_WIDTH);
 			card.setPreserveRatio(true);
 			box.getChildren().add(card);
@@ -174,9 +170,9 @@ public class GameView extends BorderPane {
 		getHumanCard(numberOfCard).setImage(new Image(imageResource));
 	}
 
-//	void setDiscardPileImage(String imageResource) {
-//		getDiscardPile().setImage(new Image(imageResource));
-//	}
+	void setDiscardPileImage(String imageResource) {
+		getDiscardPile().setImage(new Image(imageResource));
+	}
 
 	MenuItem getRulesMenuItem() {
 		return rules;
