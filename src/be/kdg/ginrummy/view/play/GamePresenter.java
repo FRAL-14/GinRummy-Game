@@ -4,7 +4,14 @@ import be.kdg.ginrummy.model.Card;
 import be.kdg.ginrummy.model.Game;
 import be.kdg.ginrummy.model.Hand;
 import be.kdg.ginrummy.model.ViewRules;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.input.DataFormat;
+import javafx.util.Duration;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class GamePresenter {
@@ -17,6 +24,9 @@ public class GamePresenter {
 	public GamePresenter(Game model, GameView view) {
 		this.MODEL = model;
 		this.VIEW = view;
+
+		MODEL.setStartingTimeToNow();
+
 		addEventHandlers();
 		updateView();
 	}
@@ -27,7 +37,26 @@ public class GamePresenter {
 	}
 
 	private void updateView() {
-		Hand modelHumanHand = MODEL.getHUMAN_PLAYER().getHAND();
+		// card images
+		updateCardImages();
+
+		// scores and deadwood
+		VIEW.getComputerPoints().setText(String.valueOf(MODEL.getCOMPUTER_PLAYER().getScore()));
+		VIEW.getHumanPoints().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getScore()));
+		VIEW.getDeadwoodCount().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood()));
+
+		// elapsed time
+		final DateFormat timeFormat = new SimpleDateFormat("mm:ss");
+		final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), actionEvent -> {
+			final long elapsedTime = System.currentTimeMillis() - MODEL.getStartingTime();
+			VIEW.getTimeElapsed().setText(timeFormat.format(elapsedTime));
+		}));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
+	}
+
+	private void updateCardImages() {
+		final Hand modelHumanHand = MODEL.getHUMAN_PLAYER().getHAND();
 		for (int i = 0; i < MAX_NUMBER_OF_CARDS; i++) {
 			if (modelHumanHand.getPlayerCards().size() == MAX_NUMBER_OF_CARDS - 1 && i == MAX_NUMBER_OF_CARDS - 1) {
 				VIEW.getHumanCard(i).setVisible(false);
@@ -36,10 +65,6 @@ public class GamePresenter {
 			}
 		}
 		VIEW.setDiscardPileImage(toResourceName(MODEL.getDISCARD_PILE().getNextCard()));
-
-		VIEW.getComputerPoints().setText(String.valueOf(MODEL.getCOMPUTER_PLAYER().getScore()));
-		VIEW.getHumanPoints().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getScore()));
-		VIEW.getDeadwoodCount().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood()));
 	}
 
 	//methods for event handlers
@@ -48,8 +73,8 @@ public class GamePresenter {
 	}
 
 	private String toResourceName(Card card) {
-		String rankName = card.getRank().toString();
-		String suitName = card.getSuit().toString();
+		final String rankName = card.getRank().toString();
+		final String suitName = card.getSuit().toString();
 		return String.format("cards/%s%s.png", rankName.substring(0, 1).toUpperCase(Locale.ROOT) + rankName.substring(1), suitName.substring(0, 1).toUpperCase(Locale.ROOT) + suitName.substring(1));
 	}
 

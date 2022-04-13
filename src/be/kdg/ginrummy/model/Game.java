@@ -2,9 +2,6 @@ package be.kdg.ginrummy.model;
 
 import be.kdg.ginrummy.view.UI;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 public class Game {
 
     private final Player HUMAN_PLAYER; // Can be final, as only 1 human player is needed for a game and doesn't change
@@ -12,11 +9,11 @@ public class Game {
     private final DiscardPile DISCARD_PILE = new DiscardPile(); // Can be final, as only 1 is needed and doesn't change, its cards can be changed
     private Deck DECK = new Deck(); // Can be final, as only 1 deck is needed for a game and doesn't change
     private int turnNumber;
-    private Timestamp timeStamp;
+    private long startingTime;
 
     public Game(String nameHumanPlayer) {
         this.turnNumber = 0;
-        setTimeStampToNow();
+        setStartingTimeToNow();
 
         // Making the players
         this.HUMAN_PLAYER = new Player(nameHumanPlayer, 0, false);
@@ -47,12 +44,12 @@ public class Game {
     }
 
 
-    public Timestamp getTimeStamp() {
-        return timeStamp;
+    public long getStartingTime() {
+        return startingTime;
     }
 
-    public void setTimeStampToNow() {
-        this.timeStamp = Timestamp.valueOf(LocalDateTime.now());
+    public void setStartingTimeToNow() {
+        this.startingTime = System.currentTimeMillis();
     }
 
     public Player getHUMAN_PLAYER() {
