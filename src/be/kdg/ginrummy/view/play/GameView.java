@@ -32,6 +32,7 @@ public class GameView extends BorderPane {
 	private HBox computerCards;
 	private ImageView stackPile;
 	private ImageView discardPile;
+	private Button knockButton;
 
 
 	public GameView() {
@@ -76,6 +77,8 @@ public class GameView extends BorderPane {
 		discardPile = new ImageView(TEST_CARD);
 		discardPile.setFitWidth(IMAGE_WIDTH);
 		discardPile.setPreserveRatio(true);
+
+		knockButton = new Button("Knock");
 	}
 
 	private void layoutNodes() {
@@ -117,7 +120,7 @@ public class GameView extends BorderPane {
 		piles.setAlignment(Pos.CENTER);
 		piles.setSpacing(25);
 		center.setCenter(piles);
-		BorderPane.setMargin(piles, new Insets(10));
+		setMargin(piles, new Insets(10));
 
 		VBox humanHandAndDeadwood = new VBox(10, deadwoodBox, humanCards);
 		humanHandAndDeadwood.setAlignment(Pos.CENTER_RIGHT);
@@ -131,8 +134,18 @@ public class GameView extends BorderPane {
 		center.setTop(computerHandAndDeadwood);
 		computerCards.setAlignment(Pos.CENTER);
 
-		center.setPadding(new Insets(20, 35, 20, 10));
+		center.setPadding(new Insets(20, 10, 20, 10));
 		setCenter(center);
+
+		knockButton.setPrefSize(160, 40);
+		knockButton.setDisable(true);
+		final SplitPane sp = new SplitPane(knockButton);
+		sp.setTooltip(new Tooltip("You can only knock when deadwood is 10 or below"));
+		sp.setStyle("-fx-box-border: transparent;");
+		sp.setMaxSize(160, 40);
+		setRight(sp);
+		setAlignment(sp, Pos.BOTTOM_CENTER);
+		setMargin(sp, new Insets(20, 35, 20, 0));
 	}
 
 	private void addCards(HBox box) {

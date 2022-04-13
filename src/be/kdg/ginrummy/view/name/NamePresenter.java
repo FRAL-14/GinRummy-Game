@@ -41,7 +41,7 @@ public class NamePresenter {
         GamePresenter gamePresenter = new GamePresenter(gameModel, gameView);
         view.getScene().setRoot(gameView);
         Stage stage = (Stage) gameView.getScene().getWindow();
-        stage.setMinWidth(940);
+        stage.setMinWidth(1010);
         stage.setMinHeight(620);
         stage.centerOnScreen();
     }
