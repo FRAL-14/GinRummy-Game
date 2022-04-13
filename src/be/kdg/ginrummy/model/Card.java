@@ -33,6 +33,7 @@ public class Card implements Comparable<Card> {
         return RANK.getVALUE();
     }
 
+    @Override
     public String toString() {
         return this.RANK + " of " + this.SUIT;
     }
@@ -76,7 +77,12 @@ public class Card implements Comparable<Card> {
         SPADE,
         HEART,
         CLUB,
-        DIAMOND; 
+        DIAMOND;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase(Locale.ROOT);
+        }
     }
 
 }

@@ -57,7 +57,7 @@ public class HomePresenter {
     //methods for new screens
     private void nameInput(){
         NameView nameView = new NameView();
-        NamePresenter namePresenter = new NamePresenter(playerModel, nameView);
+        NamePresenter namePresenter = new NamePresenter(MODEL, nameView);
         VIEW.getScene().setRoot(nameView);
     }
     private void statisticsScreen(){

@@ -12,13 +12,12 @@ import javafx.stage.Stage;
 
 public class NamePresenter {
     private final NameView view;
-    private  Game gameModel;
-    private Player model;
+    private  Game model;
     private GameView gameView;
 
 
 
-    public NamePresenter(Player model, NameView view) {
+    public NamePresenter(Game model, NameView view) {
         this.model = model;
         this.view = view;
         addEventHandlers();
@@ -38,7 +37,7 @@ public class NamePresenter {
     //methods for eventHandlers
     private void startGame(){
         gameView = new GameView();
-        GamePresenter gamePresenter = new GamePresenter(gameModel, gameView);
+        GamePresenter gamePresenter = new GamePresenter(model, gameView);
         view.getScene().setRoot(gameView);
         Stage stage = (Stage) gameView.getScene().getWindow();
         stage.setMinWidth(1010);
@@ -47,7 +46,7 @@ public class NamePresenter {
     }
     private void returnToHomeScreen(){
         HomeView homeView = new HomeView();
-        HomePresenter homePresenter = new HomePresenter(gameModel, homeView);
+        HomePresenter homePresenter = new HomePresenter(model, homeView);
         view.getScene().setRoot(homeView);
     }
     private void displayRulesScreen(){

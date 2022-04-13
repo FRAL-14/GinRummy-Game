@@ -55,7 +55,6 @@ public class Hand extends Deck {
         return playerCards.size();
     }
 
-
     public void printPlayerCards() {
         for (Card card : playerCards) {
             System.out.print(card + " - ");

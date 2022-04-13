@@ -114,7 +114,7 @@ public class GameView extends BorderPane {
 
 		HBox deadwoodBox = new HBox(deadwoodLabel, deadwoodCount);
 		this.layoutBox(deadwoodBox);
-		VBox.setMargin(deadwoodBox, new Insets(0, IMAGE_WIDTH, 0, 0));
+//		VBox.setMargin(deadwoodBox, new Insets(0, IMAGE_WIDTH, 0, 0));
 
 		HBox piles = new HBox(stackPile, discardPile);
 		piles.setAlignment(Pos.CENTER);
@@ -169,6 +169,14 @@ public class GameView extends BorderPane {
 		field.setPrefColumnCount(4);
 		field.setAlignment(Pos.CENTER);
 	}
+
+	void setHandImage(int numberOfCard, String imageResource) {
+		getHumanCard(numberOfCard).setImage(new Image(imageResource));
+	}
+
+//	void setDiscardPileImage(String imageResource) {
+//		getDiscardPile().setImage(new Image(imageResource));
+//	}
 
 	MenuItem getRulesMenuItem() {
 		return rules;
