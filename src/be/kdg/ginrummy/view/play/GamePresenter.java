@@ -36,6 +36,10 @@ public class GamePresenter {
 			}
 		}
 		VIEW.setDiscardPileImage(toResourceName(MODEL.getDISCARD_PILE().getNextCard()));
+
+		VIEW.getComputerPoints().setText(String.valueOf(MODEL.getCOMPUTER_PLAYER().getScore()));
+		VIEW.getHumanPoints().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getScore()));
+		VIEW.getDeadwoodCount().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood()));
 	}
 
 	//methods for event handlers

@@ -13,7 +13,6 @@ public class GameView extends BorderPane {
 	private static final double IMAGE_WIDTH = 100;
 	private static final double OVERLAP = IMAGE_WIDTH * (-.5);
 	private final Image BACKSIDE_CARD = new Image("cards/Backside.png");
-	private final Image TEST_CARD = new Image("cards/FiveHeart.png");
 	//private menu Bar attributes
 	private MenuBar menuBar;
 	private Menu menu;
@@ -70,7 +69,7 @@ public class GameView extends BorderPane {
 		stackPile = new ImageView(BACKSIDE_CARD);
 		stackPile.setFitWidth(IMAGE_WIDTH);
 		stackPile.setPreserveRatio(true);
-		discardPile = new ImageView(TEST_CARD);
+		discardPile = new ImageView(BACKSIDE_CARD);
 		discardPile.setFitWidth(IMAGE_WIDTH);
 		discardPile.setPreserveRatio(true);
 
