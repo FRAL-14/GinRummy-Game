@@ -34,6 +34,8 @@ public class GameView extends BorderPane {
 	private ImageView discardPile;
 	private Button knockButton;
 	private Button passFirstCardButton;
+	private HBox humanBox;
+	private HBox computerBox;
 
 
 	public GameView() {
@@ -133,9 +135,11 @@ public class GameView extends BorderPane {
 		humanPoints.setEditable(false);
 		humanPoints.setFocusTraversable(false);
 
-		final HBox computerBox = new HBox(computerLabel, computerPoints);
+
+		computerBox = new HBox(computerLabel, computerPoints);
 		final HBox timeBox = new HBox(timeLabel, timeElapsed);
-		final HBox humanBox = new HBox(humanLabel, humanPoints);
+
+		humanBox = new HBox(humanLabel, humanPoints);
 		leftSide.getChildren().addAll(computerBox, timeBox, humanBox);
 		// set a border on the boxes
 		for (int i = 0; i < leftSide.getChildren().size(); i++) {
@@ -255,6 +259,11 @@ public class GameView extends BorderPane {
 
 	Button getPassFirstCardButton() {
 		return passFirstCardButton;
+	}
+
+	void setBoxBorders(boolean computerIsActive) {
+		computerBox.setBorder(new Border(new BorderStroke(Paint.valueOf(computerIsActive ? "Green" : "Black"), BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		humanBox.setBorder(new Border(new BorderStroke(Paint.valueOf(!computerIsActive ? "Green" : "Black"), BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 	}
 
 }

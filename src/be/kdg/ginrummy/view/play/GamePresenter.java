@@ -12,6 +12,7 @@ import javafx.util.Duration;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Random;
 
 public class GamePresenter {
 
@@ -19,6 +20,7 @@ public class GamePresenter {
 	private final Game MODEL;
 	private final GameView VIEW;
 	private TurnState turnState;
+	private final Random RANDOM = new Random();
 
 
 	public GamePresenter(Game model, GameView view) {
@@ -87,7 +89,43 @@ public class GamePresenter {
 			}
 		}
 
+		if (!MODEL.humanIsPlaying()) {
+			VIEW.setBoxBorders(true);
+			computerMoves();
+		} else {
+			VIEW.setBoxBorders(false);
+		}
+
 		updateView();
+	}
+
+	private void computerMoves() {
+		if (turnState == TurnState.FIRST_TURN) {
+			boolean passUpturnCard = RANDOM.nextBoolean();
+			if (passUpturnCard) {
+				System.out.println("passed upturn card");
+				setTurnState(TurnState.FIRST_TURN);
+			} else {
+				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDISCARD_PILE().getNextCard());
+				System.out.println("took upturn card");
+				setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
+			}
+		} else if (turnState == TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK) {
+			int numberOfCard = RANDOM.nextInt(MAX_NUMBER_OF_CARDS);
+			MODEL.getDISCARD_PILE().addCard(MODEL.getCOMPUTER_PLAYER().discardCard(numberOfCard));
+			System.out.println("discarded " + numberOfCard + " from hand to discard pile");
+			setTurnState(TurnState.TAKE_FROM_PILE);
+		} else if (turnState == TurnState.TAKE_FROM_PILE) {
+			boolean takeFromStack = RANDOM.nextBoolean();
+			if (takeFromStack) {
+				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDECK().getNextCard());
+				System.out.println("took from deck");
+			} else {
+				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDISCARD_PILE().getNextCard());
+				System.out.println("took from discard pile");
+			}
+			setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
+		}
 	}
 
 	private void moveUpturnCardToHand(ImageView cardView) {
@@ -116,24 +154,24 @@ public class GamePresenter {
 	}
 
 	private void upturnCardAnimation(ImageView card, boolean goUp) {
-		if ((turnState == TurnState.FIRST_TURN || turnState == TurnState.TAKE_FROM_PILE)&& MODEL.humanIsPlaying()) {
-			cardAnimation(card, goUp);
+		if ((turnState == TurnState.FIRST_TURN || turnState == TurnState.TAKE_FROM_PILE) && MODEL.humanIsPlaying()) {
+			cardHoverAnimation(card, goUp);
 		}
 	}
 
 	private void humanHandCardAnimation(ImageView card, boolean goUp) {
 		if (turnState == TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK && MODEL.humanIsPlaying()) {
-			cardAnimation(card, goUp);
+			cardHoverAnimation(card, goUp);
 		}
 	}
 
 	private void stackCardAnimation(ImageView card, boolean goUp) {
 		if (turnState == TurnState.TAKE_FROM_PILE && MODEL.humanIsPlaying()) {
-			cardAnimation(card, goUp);
+			cardHoverAnimation(card, goUp);
 		}
 	}
 
-	private void cardAnimation(Node card, boolean goUp) {
+	private void cardHoverAnimation(ImageView card, boolean goUp) {
 		final TranslateTransition tt = new TranslateTransition(Duration.millis(200), card);
 		tt.setToY(goUp ? -20 : 0);
 		tt.setCycleCount(1);
