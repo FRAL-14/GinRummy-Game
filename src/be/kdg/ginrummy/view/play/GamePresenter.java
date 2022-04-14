@@ -7,7 +7,8 @@ import be.kdg.ginrummy.model.ViewRules;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.input.DataFormat;
+import javafx.animation.TranslateTransition;
+import javafx.scene.Node;
 import javafx.util.Duration;
 
 import java.text.DateFormat;
@@ -34,6 +35,10 @@ public class GamePresenter {
 
 	private void addEventHandlers() {
 		VIEW.getRulesMenuItem().setOnAction(e -> displayRulesScreen());
+		for (Node card : VIEW.getHumanCards().getChildren()) {
+			card.setOnMouseEntered(mouseEvent -> moveCard((Node) mouseEvent.getTarget(), true));
+			card.setOnMouseExited(mouseEvent -> moveCard((Node) mouseEvent.getTarget(), false));
+		}
 	}
 
 	private void updateView() {
@@ -46,6 +51,18 @@ public class GamePresenter {
 		VIEW.getDeadwoodCount().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood()));
 
 		// elapsed time
+		startTimer();
+	}
+
+	private void moveCard(Node card, boolean goUp) {
+		final TranslateTransition tt = new TranslateTransition(Duration.millis(200), card);
+		tt.setToY(goUp ? -20 : 0);
+		tt.setCycleCount(1);
+		tt.setAutoReverse(false);
+		tt.play();
+	}
+
+	private void startTimer() {
 		final DateFormat timeFormat = new SimpleDateFormat("mm:ss");
 		final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), actionEvent -> {
 			final long elapsedTime = System.currentTimeMillis() - MODEL.getStartingTime();

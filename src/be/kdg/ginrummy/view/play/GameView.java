@@ -148,6 +148,7 @@ public class GameView extends BorderPane {
 			ImageView card = new ImageView(BACKSIDE_CARD);
 			card.setFitWidth(IMAGE_WIDTH);
 			card.setPreserveRatio(true);
+			card.setId("" + i);
 			box.getChildren().add(card);
 		}
 		ImageView eleventhCard = (ImageView) box.getChildren().get(10);
@@ -207,6 +208,10 @@ public class GameView extends BorderPane {
 
 	ImageView getDiscardPile() {
 		return discardPile;
+	}
+
+	HBox getHumanCards() {
+		return humanCards;
 	}
 
 }
