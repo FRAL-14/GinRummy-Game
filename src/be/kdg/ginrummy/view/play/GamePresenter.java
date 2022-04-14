@@ -39,6 +39,10 @@ public class GamePresenter {
 			card.setOnMouseEntered(mouseEvent -> moveCard((Node) mouseEvent.getTarget(), true));
 			card.setOnMouseExited(mouseEvent -> moveCard((Node) mouseEvent.getTarget(), false));
 		}
+		for (Node card : VIEW.getPiles().getChildren()) {
+			card.setOnMouseEntered(mouseEvent -> moveCard((Node) mouseEvent.getTarget(), true));
+			card.setOnMouseExited(mouseEvent -> moveCard((Node) mouseEvent.getTarget(), false));
+		}
 	}
 
 	private void updateView() {

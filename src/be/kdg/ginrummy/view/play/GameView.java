@@ -29,6 +29,7 @@ public class GameView extends BorderPane {
 	private TextField deadwoodCount;
 	private HBox humanCards;
 	private HBox computerCards;
+	private HBox piles;
 	private ImageView stackPile;
 	private ImageView discardPile;
 	private Button knockButton;
@@ -111,7 +112,7 @@ public class GameView extends BorderPane {
 		this.layoutBox(deadwoodBox);
 //		VBox.setMargin(deadwoodBox, new Insets(0, IMAGE_WIDTH, 0, 0));
 
-		HBox piles = new HBox(stackPile, discardPile);
+		piles = new HBox(stackPile, discardPile);
 		piles.setAlignment(Pos.CENTER);
 		piles.setSpacing(25);
 		center.setCenter(piles);
@@ -212,6 +213,10 @@ public class GameView extends BorderPane {
 
 	HBox getHumanCards() {
 		return humanCards;
+	}
+
+	HBox getPiles() {
+		return piles;
 	}
 
 }
