@@ -10,7 +10,7 @@ public class Deck {
         deck = new LinkedList<>();
         for (int suit = 0; suit < Card.Suit.values().length; suit++) {
             for (int rank = 0; rank < Card.Rank.values().length; rank++) {
-                deck.add(new Card(Card.Rank.values()[rank], Card.Suit.values()[suit]));
+                deck.add(0, new Card(Card.Rank.values()[rank], Card.Suit.values()[suit]));
             }
         }
         // Collections.shuffle(deck);
@@ -30,7 +30,7 @@ public class Deck {
         this.deck = new LinkedList<>(updatedDeckOfCards);
     }
 
-    protected Card getCardAt(int i) {
+    public Card getCardAt(int i) {
         return deck.get(i);
     }
 
@@ -43,9 +43,10 @@ public class Deck {
         removeCard(0);
     }
 
-    public void drawCardFor(DiscardPile discardPile) {
-        discardPile.addCard(getCardAt(0));
+    public Card getNextCard() {
+        final Card temp = getCardAt(0);
         removeCard(0);
+        return temp;
     }
 
 }

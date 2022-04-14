@@ -15,13 +15,11 @@ public class Player {
     }
 
 
-
-    protected Card discardCard(int i) {
+    public Card discardCard(int i) {
         Card card = HAND.getCardAt(i);
         HAND.removeCard(i);
         return card;
     }
-
 
     public String getNAME() {
         return NAME;
