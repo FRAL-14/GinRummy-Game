@@ -1,5 +1,6 @@
 package be.kdg.ginrummy.model;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Deck {
                 deck.add(0, new Card(Card.Rank.values()[rank], Card.Suit.values()[suit]));
             }
         }
-        // Collections.shuffle(deck);
+         Collections.shuffle(deck);
     }
 
     public void printDeck() {

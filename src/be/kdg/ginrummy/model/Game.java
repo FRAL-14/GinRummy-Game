@@ -95,9 +95,9 @@ public class Game {
 	}
 
 	public void endGame() {
-		int humanPoints = getHUMAN_PLAYER().getHAND().calculateDeadwood();
-		int computerPoints = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
-		int newPoints = 0;
+		final int humanPoints = getHUMAN_PLAYER().getHAND().calculateDeadwood();
+		final int computerPoints = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
+		int newPoints;
 
 		if (humanPoints > computerPoints) {
 			newPoints = humanPoints - computerPoints;

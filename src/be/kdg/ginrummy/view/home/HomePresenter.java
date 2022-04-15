@@ -4,10 +4,13 @@ import be.kdg.ginrummy.model.Game;
 import be.kdg.ginrummy.model.GameStatistics;
 import be.kdg.ginrummy.model.Player;
 import be.kdg.ginrummy.model.ViewRules;
+import be.kdg.ginrummy.view.help.HelpPresenter;
+import be.kdg.ginrummy.view.help.HelpView;
 import be.kdg.ginrummy.view.name.NamePresenter;
 import be.kdg.ginrummy.view.name.NameView;
 import be.kdg.ginrummy.view.statistics.StatisticsPresenter;
 import be.kdg.ginrummy.view.statistics.StatisticsView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 
 public class HomePresenter {
@@ -67,8 +70,9 @@ public class HomePresenter {
     }
 
     private void rulesScreen(){
-        ViewRules.viewRules(VIEW.getScene());
-
+        HelpView helpView = new HelpView();
+        HelpPresenter helpPresenter = new HelpPresenter(MODEL, helpView);
+        VIEW.getScene().setRoot(helpView);
     }
 
 }

@@ -35,8 +35,8 @@ public class HelpPresenter {
 		final HomePresenter homePresenter = new HomePresenter(MODEL, homeView);
 		VIEW.getScene().setRoot(homeView);
 		Stage stage = (Stage) homeView.getScene().getWindow();
-		stage.setMinWidth(HomeView.HOME_WIDTH);
-		stage.setMinHeight(HomeView.HOME_HEIGHT);
+		stage.setMinWidth(HomeView.MIN_HOME_WIDTH);
+		stage.setMinHeight(HomeView.MIN_HOME_HEIGHT);
 		homeView.getScene().getWindow().sizeToScene();
 	}
 

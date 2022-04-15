@@ -9,8 +9,10 @@ import javafx.scene.layout.VBox;
 
 public class HomeView extends BorderPane {
 
-    public static final int HOME_WIDTH = 200;
-    public static final int HOME_HEIGHT = 220;
+    public static final int MIN_HOME_WIDTH = 200;
+    public static final int MIN_HOME_HEIGHT = 220;
+    public static final int PREF_HOME_WIDTH = 350;
+    public static final int PREF_HOME_HEIGHT = 250;
 
     private VBox vBox;
     private Label titleLabel;
@@ -42,7 +44,7 @@ public class HomeView extends BorderPane {
         vBox.setAlignment(Pos.CENTER);
 
         setPadding(new Insets(20, 35, 20, 35));
-        setPrefSize(350, 250);
+        setPrefSize(PREF_HOME_WIDTH, PREF_HOME_HEIGHT);
     }
 
     Label getTitleLabel() {

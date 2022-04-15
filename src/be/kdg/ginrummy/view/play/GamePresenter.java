@@ -1,6 +1,8 @@
 package be.kdg.ginrummy.view.play;
 
 import be.kdg.ginrummy.model.*;
+import be.kdg.ginrummy.view.home.HomePresenter;
+import be.kdg.ginrummy.view.home.HomeView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,6 +11,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.text.DateFormat;
@@ -59,6 +62,10 @@ public class GamePresenter {
 		stackCard.setOnMouseClicked(mouseEvent -> moveStackCardToHand(stackCard));
 
 		VIEW.getPassFirstCardButton().setOnAction(actionEvent -> setTurnState(TurnState.FIRST_TURN));
+		VIEW.getKnockButton().setOnAction(actionEvent -> {
+			MODEL.endGame();
+			setHomeMenu();
+		});
 	}
 
 	private void updateView() {
@@ -76,6 +83,7 @@ public class GamePresenter {
 
 		// buttons
 		VIEW.getPassFirstCardButton().setVisible(turnState == TurnState.FIRST_TURN && MODEL.humanIsPlaying());
+		VIEW.getKnockButton().setDisable(!MODEL.getHUMAN_PLAYER().canKnock());
 	}
 
 	private void setTurnState(TurnState turnState) {
@@ -287,6 +295,18 @@ public class GamePresenter {
 	//methods for event handlers
 	private void displayRulesScreen() {
 		ViewRules.viewRules(VIEW.getScene());
+	}
+
+	private void setHomeMenu() {
+		HomeView homeView = new HomeView();
+		HomePresenter homePresenter = new HomePresenter(MODEL, homeView);
+		VIEW.getScene().setRoot(homeView);
+		Stage stage = (Stage) homeView.getScene().getWindow();
+		stage.setMinWidth(HomeView.MIN_HOME_WIDTH);
+		stage.setWidth(HomeView.MIN_HOME_WIDTH);
+		stage.setMinHeight(HomeView.MIN_HOME_HEIGHT);
+		stage.setHeight(HomeView.MIN_HOME_HEIGHT);
+		stage.centerOnScreen();
 	}
 
 	private String toResourceName(Card card) {
