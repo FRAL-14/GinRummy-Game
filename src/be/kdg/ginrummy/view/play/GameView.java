@@ -29,9 +29,12 @@ public class GameView extends BorderPane {
 	private TextField deadwoodCount;
 	private HBox humanCards;
 	private HBox computerCards;
-	private HBox piles;
-	private ImageView stackPile;
-	private ImageView discardPile;
+	private HBox topPiles;
+	private HBox beneathPiles;
+	private ImageView stackPileTopCard;
+	private ImageView stackPileBeneath;
+	private ImageView discardPileTopCard;
+	private ImageView discardPileBeneath;
 	private Button knockButton;
 	private Button passFirstCardButton;
 	private HBox humanBox;
@@ -70,16 +73,23 @@ public class GameView extends BorderPane {
 		computerCards = new HBox(OVERLAP);
 		this.addCards(computerCards);
 
-		stackPile = new ImageView(BACKSIDE_CARD);
-		stackPile.setFitWidth(IMAGE_WIDTH);
-		stackPile.setPreserveRatio(true);
-		discardPile = new ImageView(BACKSIDE_CARD);
-		discardPile.setFitWidth(IMAGE_WIDTH);
-		discardPile.setPreserveRatio(true);
+		stackPileTopCard = initialiseImageViews(BACKSIDE_CARD);
+		stackPileBeneath = initialiseImageViews(BACKSIDE_CARD);
+
+		discardPileTopCard = initialiseImageViews(BACKSIDE_CARD);
+		discardPileBeneath = initialiseImageViews(BACKSIDE_CARD);
+		discardPileBeneath.setVisible(false);
 
 		knockButton = new Button("Knock");
 
 		passFirstCardButton = new Button("Pass");
+	}
+
+	private ImageView initialiseImageViews(Image image) {
+		ImageView imageView = new ImageView(image);
+		imageView.setFitWidth(IMAGE_WIDTH);
+		imageView.setPreserveRatio(true);
+		return imageView;
 	}
 
 	private void layoutNodes() {
@@ -92,11 +102,18 @@ public class GameView extends BorderPane {
 		layoutLeftSide();
 
 		// center piles
-		piles = new HBox(stackPile, discardPile);
-		piles.setAlignment(Pos.CENTER);
-		piles.setSpacing(25);
-		center.setCenter(piles);
-		setMargin(piles, new Insets(10));
+		beneathPiles = new HBox(stackPileBeneath, discardPileBeneath);
+		beneathPiles.setSpacing(25);
+		beneathPiles.setAlignment(Pos.CENTER);
+
+		topPiles = new HBox(stackPileTopCard, discardPileTopCard);
+		topPiles.setSpacing(25);
+		topPiles.setAlignment(Pos.CENTER);
+
+		StackPane sp = new StackPane(beneathPiles, topPiles);
+
+		center.setCenter(sp);
+		setMargin(sp, new Insets(10));
 
 		// top and bottom
 		layoutHandsAndDeadwood();
@@ -119,7 +136,7 @@ public class GameView extends BorderPane {
 		center.setBottom(humanHandAndDeadwood);
 		humanCards.setAlignment(Pos.CENTER);
 
-		final HBox invisibleDeadwoodBox = new HBox(new Label(), new TextField()); // to have same spacing above the stack and discard piles
+		final HBox invisibleDeadwoodBox = new HBox(new Label(), new TextField()); // to have same spacing above the stack and discard topPiles
 		this.layoutBox(invisibleDeadwoodBox);
 		invisibleDeadwoodBox.setVisible(false);
 		final VBox computerHandAndDeadwood = new VBox(10, computerCards, invisibleDeadwoodBox);
@@ -205,8 +222,12 @@ public class GameView extends BorderPane {
 		getHumanCard(numberOfCard).setImage(new Image(imageResource));
 	}
 
-	void setDiscardPileImage(String imageResource) {
-		getDiscardPile().setImage(new Image(imageResource));
+	void setDiscardPileTopCardImage(String imageResource) {
+		getDiscardPileTopCard().setImage(new Image(imageResource));
+	}
+
+	void setDiscardPileBeneathImage(String imageResource) {
+		getDiscardPileBeneath().setImage(new Image(imageResource));
 	}
 
 	MenuItem getRulesMenuItem() {
@@ -237,20 +258,28 @@ public class GameView extends BorderPane {
 		return deadwoodCount;
 	}
 
-	ImageView getStackPile() {
-		return stackPile;
+	ImageView getStackPileTopCard() {
+		return stackPileTopCard;
 	}
 
-	ImageView getDiscardPile() {
-		return discardPile;
+	ImageView getDiscardPileTopCard() {
+		return discardPileTopCard;
 	}
 
 	HBox getHumanCards() {
 		return humanCards;
 	}
 
-	HBox getPiles() {
-		return piles;
+	HBox getTopPiles() {
+		return topPiles;
+	}
+
+	HBox getBeneathPiles() {
+		return beneathPiles;
+	}
+
+	ImageView getDiscardPileBeneath() {
+		return discardPileBeneath;
 	}
 
 	Button getKnockButton() {
@@ -261,9 +290,14 @@ public class GameView extends BorderPane {
 		return passFirstCardButton;
 	}
 
-	void setBoxBorders(boolean computerIsActive) {
+	void setPlayerTurnColour(boolean computerIsActive) {
 		computerBox.setBorder(new Border(new BorderStroke(Paint.valueOf(computerIsActive ? "Green" : "Black"), BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		computerLabel.setTextFill(Paint.valueOf(computerIsActive ? "Green" : "Black"));
 		humanBox.setBorder(new Border(new BorderStroke(Paint.valueOf(!computerIsActive ? "Green" : "Black"), BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
+		humanLabel.setTextFill(Paint.valueOf(!computerIsActive ? "Green" : "Black"));
 	}
 
+	Image getBACKSIDE_CARD() {
+		return BACKSIDE_CARD;
+	}
 }

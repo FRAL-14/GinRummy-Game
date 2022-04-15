@@ -5,7 +5,9 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -39,7 +41,7 @@ public class GamePresenter {
 	private void addEventHandlers() {
 		VIEW.getRulesMenuItem().setOnAction(e -> displayRulesScreen());
 
-		final ImageView upturnCard = VIEW.getDiscardPile();
+		final ImageView upturnCard = VIEW.getDiscardPileTopCard();
 		upturnCard.setOnMouseEntered(mouseEvent -> upturnCardAnimation(upturnCard, true));
 		upturnCard.setOnMouseExited(mouseEvent -> upturnCardAnimation(upturnCard, false));
 		upturnCard.setOnMouseClicked(mouseEvent -> moveUpturnCardToHand(upturnCard));
@@ -51,7 +53,7 @@ public class GamePresenter {
 			imageView.setOnMouseClicked(mouseEvent -> moveCardToDiscardPile(imageView));
 		}
 
-		final ImageView stackCard = VIEW.getStackPile();
+		final ImageView stackCard = VIEW.getStackPileTopCard();
 		stackCard.setOnMouseEntered(mouseEvent -> stackCardAnimation(stackCard, true));
 		stackCard.setOnMouseExited(mouseEvent -> stackCardAnimation(stackCard, false));
 		stackCard.setOnMouseClicked(mouseEvent -> moveStackCardToHand(stackCard));
@@ -90,10 +92,10 @@ public class GamePresenter {
 		}
 
 		if (!MODEL.humanIsPlaying()) {
-			VIEW.setBoxBorders(true);
+			VIEW.setPlayerTurnColour(true);
 			computerMoves();
 		} else {
-			VIEW.setBoxBorders(false);
+			VIEW.setPlayerTurnColour(false);
 		}
 
 		updateView();
@@ -103,28 +105,25 @@ public class GamePresenter {
 		if (turnState == TurnState.FIRST_TURN) {
 			boolean passUpturnCard = RANDOM.nextBoolean();
 			if (passUpturnCard) {
-				System.out.println("passed upturn card");
 				setTurnState(TurnState.FIRST_TURN);
+				System.out.println("passed upturn card");
 			} else {
-				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDISCARD_PILE().getNextCard());
+				cardPlayToHand(false);
 				System.out.println("took upturn card");
-				setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
 			}
 		} else if (turnState == TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK) {
 			int numberOfCard = RANDOM.nextInt(MAX_NUMBER_OF_CARDS);
-			MODEL.getDISCARD_PILE().addCard(MODEL.getCOMPUTER_PLAYER().discardCard(numberOfCard));
+			cardPlayToDiscardPile(numberOfCard);
 			System.out.println("discarded " + numberOfCard + " from hand to discard pile");
-			setTurnState(TurnState.TAKE_FROM_PILE);
 		} else if (turnState == TurnState.TAKE_FROM_PILE) {
 			boolean takeFromStack = RANDOM.nextBoolean();
 			if (takeFromStack) {
-				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDECK().getNextCard());
+				cardPlayToHand(true);
 				System.out.println("took from deck");
 			} else {
-				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDISCARD_PILE().getNextCard());
+				cardPlayToHand(false);
 				System.out.println("took from discard pile");
 			}
-			setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
 		}
 	}
 
@@ -180,6 +179,71 @@ public class GamePresenter {
 		updateView();
 	}
 
+	private void cardPlayToDiscardPile(int numberOfCard) {
+		final ImageView card = VIEW.getComputerCard(numberOfCard);
+
+		final Bounds cardBounds = card.localToScene(card.getBoundsInLocal());
+		final double cardMinX = cardBounds.getMinX();
+		final double cardMinY = cardBounds.getMinY();
+		final Bounds discardPileBounds = VIEW.getDiscardPileTopCard().localToScene(VIEW.getDiscardPileTopCard().getBoundsInLocal());
+		final double discardPileMinX = discardPileBounds.getMinX();
+		final double discardPileMinY = discardPileBounds.getMinY();
+
+		card.setImage(new Image(toResourceName(MODEL.getCOMPUTER_PLAYER().getHAND().getCardAt(numberOfCard))));
+
+		final TranslateTransition tt = new TranslateTransition(Duration.millis(1000), card);
+		tt.setToX(discardPileMinX - cardMinX);
+		tt.setToY(discardPileMinY - cardMinY);
+		tt.setCycleCount(1);
+		tt.setAutoReverse(false);
+		tt.play();
+		System.out.println("started animation");
+		tt.setOnFinished(actionEvent -> {
+			card.setImage(VIEW.getBACKSIDE_CARD());
+			card.setTranslateX(0);
+			card.setTranslateY(0);
+
+			MODEL.getDISCARD_PILE().addCard(MODEL.getCOMPUTER_PLAYER().discardCard(numberOfCard));
+			setTurnState(TurnState.TAKE_FROM_PILE);
+			System.out.println("finished animation");
+		});
+	}
+
+	private void cardPlayToHand(boolean takeFromStackPile) {
+		final ImageView card = takeFromStackPile ? VIEW.getStackPileTopCard() : VIEW.getDiscardPileTopCard();
+
+		final Bounds sourceBounds = card.localToScene(card.getBoundsInLocal());
+		final double sourceMinX = sourceBounds.getMinX();
+		final double sourceMinY = sourceBounds.getMinY();
+		final Bounds eleventhCardBounds = VIEW.getComputerCard(MAX_NUMBER_OF_CARDS - 1).localToScene(VIEW.getComputerCard(MAX_NUMBER_OF_CARDS - 1).getBoundsInLocal());
+		final double eleventhCardMinX = eleventhCardBounds.getMinX();
+		final double eleventhCardMinY = eleventhCardBounds.getMinY();
+
+		if (!takeFromStackPile) {
+			card.setImage(VIEW.getBACKSIDE_CARD());
+		}
+
+		final TranslateTransition tt = new TranslateTransition(Duration.millis(1000), card);
+		tt.setToX(eleventhCardMinX - sourceMinX);
+		tt.setToY(eleventhCardMinY - sourceMinY);
+		tt.setCycleCount(1);
+		tt.setAutoReverse(false);
+		tt.play();
+		System.out.println("started animation");
+		tt.setOnFinished(actionEvent -> {
+			card.setTranslateX(0);
+			card.setTranslateY(0);
+
+			if (takeFromStackPile) {
+				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDECK().getNextCard());
+			} else {
+				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDISCARD_PILE().getNextCard());
+			}
+			setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
+			System.out.println("finished animation");
+		});
+	}
+
 	private void startTimer() {
 		final DateFormat timeFormat = new SimpleDateFormat("mm:ss");
 		final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), actionEvent -> {
@@ -200,10 +264,23 @@ public class GamePresenter {
 				VIEW.getHumanCard(i).setVisible(true);
 			}
 		}
+
+		final Hand modelComputerHand = MODEL.getCOMPUTER_PLAYER().getHAND();
+		for (int i = 0; i < MAX_NUMBER_OF_CARDS; i++) {
+			VIEW.getComputerCard(i).setVisible(modelComputerHand.getPlayerCards().size() != MAX_NUMBER_OF_CARDS - 1 || i != MAX_NUMBER_OF_CARDS - 1);
+		}
+
 		if (!MODEL.getDISCARD_PILE().getDiscardedCards().isEmpty()) {
-			VIEW.setDiscardPileImage(toResourceName(MODEL.getDISCARD_PILE().getCardAt(0)));
+			VIEW.setDiscardPileTopCardImage(toResourceName(MODEL.getDISCARD_PILE().getCardAt(0)));
 		} else {
 			MODEL.getDISCARD_PILE().addCard(MODEL.getDECK().getCardAt(0));
+		}
+
+		if (MODEL.getDISCARD_PILE().getDiscardedCards().size() <= 1) {
+			VIEW.getDiscardPileBeneath().setVisible(false);
+		} else {
+			VIEW.setDiscardPileBeneathImage(toResourceName(MODEL.getDISCARD_PILE().getCardAt(1)));
+			VIEW.getDiscardPileBeneath().setVisible(true);
 		}
 	}
 
