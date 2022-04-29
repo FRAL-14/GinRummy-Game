@@ -85,7 +85,7 @@ public class Game {
 	}
 
 	public void switchTurn() {
-		// TODO: create new Session
+		// TODO: create new Session?
 
 		if (getHUMAN_PLAYER().getIsPlayerTurn()) {
 			getHUMAN_PLAYER().setIsPlayerTurn(false);
@@ -101,7 +101,6 @@ public class Game {
 	}
 
 	public void distributePoints() {
-		// TODO: implement Gin
 		final int humanPoints = getHUMAN_PLAYER().getHAND().calculateDeadwood();
 		final int computerPoints = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
 		int newPoints = 0;
@@ -124,20 +123,6 @@ public class Game {
 
 		DECK.resetDeck();
 		dealCards();
-	}
-
-	// TODO: can be removed in finished game
-	public void playNormalTurn(Player player) {
-
-		if (UI.askUserIfTakeUpCard()) {
-			player.getHAND().addCard(getDISCARD_PILE().getNextCard());
-			regularGameChecks();
-			UI.askUserToDiscardCard(player, player.getHAND().getCardAt(player.getHAND().getCardCount() - 1));
-		} else {
-			getDECK().drawCardFor(player);
-			regularGameChecks();
-			UI.askUserToDiscardCard(player, null);
-		}
 	}
 
 }

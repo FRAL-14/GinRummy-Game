@@ -68,7 +68,6 @@ public class GamePresenter {
 			if (MODEL.isEndOfGame()) {
 				setHomeMenu(); // TODO: needs to be replaced by ending screen
 			} else {
-				//TODO: start new round
 				MODEL.startNewRound();
 			}
 			updateView();

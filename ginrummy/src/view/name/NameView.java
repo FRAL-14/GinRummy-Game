@@ -11,7 +11,7 @@ public class NameView extends VBox {
     private Label label;
     private TextField textField;
     private Button startGameButton;
-    // TODO:
+    // TODO: add option where player can choose who begins the first round
 
     //menu attributes
     private MenuBar menuBar;
