@@ -24,6 +24,7 @@ public class NamePresenter {
     }
     private void addEventHandlers() {
         view.getStartGameButton().setOnAction(e->{
+            // TODO: check if name is entered
             startGame();
         });
         view.getHomeMenuItem().setOnAction(e->{

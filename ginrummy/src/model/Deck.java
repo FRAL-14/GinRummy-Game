@@ -8,13 +8,17 @@ public class Deck {
     private List<Card> deck;
 
     public Deck() {
+        resetDeck();
+    }
+
+    public void resetDeck() {
         deck = new LinkedList<>();
         for (int suit = 0; suit < Card.Suit.values().length; suit++) {
             for (int rank = 0; rank < Card.Rank.values().length; rank++) {
                 deck.add(0, new Card(Card.Rank.values()[rank], Card.Suit.values()[suit]));
             }
         }
-         Collections.shuffle(deck);
+        Collections.shuffle(deck);
     }
 
     public void printDeck() {

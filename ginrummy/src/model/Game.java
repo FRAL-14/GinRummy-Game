@@ -4,10 +4,12 @@ import view.UI;
 
 public class Game {
 
+	private static final int POINT_THRESHOLD = 100;
+
 	private final Player HUMAN_PLAYER; // Can be final, as only 1 human player is needed for a game and doesn't change
 	private final Player COMPUTER_PLAYER; // Can be final, as only 1 CPU player is needed for a game and doesn't change
 	private final DiscardPile DISCARD_PILE = new DiscardPile(); // Can be final, as only 1 is needed and doesn't change, its cards can be changed
-	private Deck DECK = new Deck(); // Can be final, as only 1 deck is needed for a game and doesn't change
+	private final Deck DECK = new Deck(); // Can be final, as only 1 deck is needed for a game and doesn't change
 	private int turnNumber;
 	private long startingTime;
 
@@ -77,7 +79,7 @@ public class Game {
 		if (getHUMAN_PLAYER().canKnock()) {
 			if (UI.askUserIfKnock()) {
 				DISCARD_PILE.addCard(getHUMAN_PLAYER().getHAND().removeLastCard());
-				endGame();
+				distributePoints();
 			}
 		}
 	}
@@ -94,22 +96,38 @@ public class Game {
 		}
 	}
 
-	public void endGame() {
+	public boolean isEndOfGame() {
+		return HUMAN_PLAYER.getScore() >= POINT_THRESHOLD || COMPUTER_PLAYER.getScore() >= POINT_THRESHOLD;
+	}
+
+	public void distributePoints() {
+		// TODO: implement Gin
 		final int humanPoints = getHUMAN_PLAYER().getHAND().calculateDeadwood();
 		final int computerPoints = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
-		int newPoints;
+		int newPoints = 0;
 
+		if (computerPoints == 0 || humanPoints == 0) { // going gin
+			newPoints += 25;
+		}
 		if (humanPoints > computerPoints) {
-			newPoints = humanPoints - computerPoints;
+			newPoints += humanPoints - computerPoints;
 			getCOMPUTER_PLAYER().addToScore(newPoints);
 		} else {
-			newPoints = computerPoints - humanPoints;
+			newPoints += computerPoints - humanPoints;
 			getHUMAN_PLAYER().addToScore(newPoints);
 		}
 	}
 
+	public void startNewRound() {
+		this.turnNumber = 0;
+		setStartingTimeToNow();
+
+		DECK.resetDeck();
+		dealCards();
+	}
+
+	// TODO: can be removed in finished game
 	public void playNormalTurn(Player player) {
-		// TODO: replace player with player form the Session
 
 		if (UI.askUserIfTakeUpCard()) {
 			player.getHAND().addCard(getDISCARD_PILE().getNextCard());

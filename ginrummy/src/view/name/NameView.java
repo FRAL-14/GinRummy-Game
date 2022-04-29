@@ -11,6 +11,7 @@ public class NameView extends VBox {
     private Label label;
     private TextField textField;
     private Button startGameButton;
+    // TODO:
 
     //menu attributes
     private MenuBar menuBar;

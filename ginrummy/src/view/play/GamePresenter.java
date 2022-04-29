@@ -64,8 +64,14 @@ public class GamePresenter {
 
 		VIEW.getPassFirstCardButton().setOnAction(actionEvent -> setTurnState(TurnState.FIRST_TURN));
 		VIEW.getKnockButton().setOnAction(actionEvent -> {
-			MODEL.endGame();
-			setHomeMenu();
+			MODEL.distributePoints();
+			if (MODEL.isEndOfGame()) {
+				setHomeMenu(); // TODO: needs to be replaced by ending screen
+			} else {
+				//TODO: start new round
+				MODEL.startNewRound();
+			}
+			updateView();
 		});
 	}
 
@@ -115,23 +121,18 @@ public class GamePresenter {
 			boolean passUpturnCard = RANDOM.nextBoolean();
 			if (passUpturnCard) {
 				setTurnState(TurnState.FIRST_TURN);
-				System.out.println("passed upturn card");
 			} else {
 				cardPlayToHand(false);
-				System.out.println("took upturn card");
 			}
 		} else if (turnState == TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK) {
 			int numberOfCard = RANDOM.nextInt(MAX_NUMBER_OF_CARDS);
 			cardPlayToDiscardPile(numberOfCard);
-			System.out.println("discarded " + numberOfCard + " from hand to discard pile");
 		} else if (turnState == TurnState.TAKE_FROM_PILE) {
 			boolean takeFromStack = RANDOM.nextBoolean();
 			if (takeFromStack) {
 				cardPlayToHand(true);
-				System.out.println("took from deck");
 			} else {
 				cardPlayToHand(false);
-				System.out.println("took from discard pile");
 			}
 		}
 	}
@@ -206,7 +207,6 @@ public class GamePresenter {
 		tt.setCycleCount(1);
 		tt.setAutoReverse(false);
 		tt.play();
-		System.out.println("started animation");
 		tt.setOnFinished(actionEvent -> {
 			card.setImage(VIEW.getBACKSIDE_CARD());
 			card.setTranslateX(0);
@@ -214,7 +214,6 @@ public class GamePresenter {
 
 			MODEL.getDISCARD_PILE().addCard(MODEL.getCOMPUTER_PLAYER().discardCard(numberOfCard));
 			setTurnState(TurnState.TAKE_FROM_PILE);
-			System.out.println("finished animation");
 		});
 	}
 
@@ -238,7 +237,6 @@ public class GamePresenter {
 		tt.setCycleCount(1);
 		tt.setAutoReverse(false);
 		tt.play();
-		System.out.println("started animation");
 		tt.setOnFinished(actionEvent -> {
 			card.setTranslateX(0);
 			card.setTranslateY(0);
@@ -249,7 +247,6 @@ public class GamePresenter {
 				MODEL.getCOMPUTER_PLAYER().getHAND().addCard(MODEL.getDISCARD_PILE().getNextCard());
 			}
 			setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
-			System.out.println("finished animation");
 		});
 	}
 

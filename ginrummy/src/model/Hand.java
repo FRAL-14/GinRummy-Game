@@ -55,7 +55,6 @@ public class Hand extends Deck {
 			}
 			if (count >= 3) {
 				card.setInMeld(true);
-				System.out.println(card + " set in meld (run)");
 			}
 		}
 
@@ -73,7 +72,6 @@ public class Hand extends Deck {
 						if (cardsToBeInMeld.size() >= 3) {
 							for (Card cardToBeInMeld : cardsToBeInMeld) {
 								cardToBeInMeld.setInMeld(true);
-								System.out.println(cardToBeInMeld + " set in meld (set)");
 							}
 						}
 						previousCard = cardToCompare;
