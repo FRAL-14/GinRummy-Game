@@ -6,7 +6,7 @@ public class test {
         //dealing cards to the 2 players
         //in the view, display the card of player 1.
 
-        Game game = new Game("noura");
+        Game game = new Game();
 
         Player playerTwo = new Player("Lolo", 0, true);
 

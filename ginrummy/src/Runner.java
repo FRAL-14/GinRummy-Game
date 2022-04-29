@@ -13,7 +13,7 @@ public class Runner extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		Game model = new Game("Leo");
+		Game model = new Game();
 		HomeView homeView = new HomeView();
 		HomePresenter homePresenter = new HomePresenter(model, homeView);
 

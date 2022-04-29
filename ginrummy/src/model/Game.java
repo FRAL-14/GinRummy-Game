@@ -14,12 +14,12 @@ public class Game {
 	private long startingTime;
 
 
-	public Game(String nameHumanPlayer) {
+	public Game() {
 		this.turnNumber = 0;
 		setStartingTimeToNow();
 
 		// Making the players
-		this.HUMAN_PLAYER = new Player(nameHumanPlayer, 0, true);
+		this.HUMAN_PLAYER = new Player(0, true);
 		this.COMPUTER_PLAYER = new Player("Computer", 0, false);
 
 		dealCards();

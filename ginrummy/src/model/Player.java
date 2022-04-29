@@ -9,7 +9,11 @@ public class Player {
 
 
     public Player(String NAME, int score, boolean isPlayerTurn) {
+        this(score, isPlayerTurn);
         this.NAME = NAME;
+    }
+
+    public Player(int score, boolean isPlayerTurn) {
         this.score = score;
         this.isPlayerTurn = isPlayerTurn;
     }
