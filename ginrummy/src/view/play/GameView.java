@@ -39,6 +39,7 @@ public class GameView extends BorderPane {
 	private Button passFirstCardButton;
 	private HBox humanBox;
 	private HBox computerBox;
+	private Label computerMoveLabel;
 
 
 	public GameView() {
@@ -83,13 +84,8 @@ public class GameView extends BorderPane {
 		knockButton = new Button("Knock");
 
 		passFirstCardButton = new Button("Pass");
-	}
 
-	private ImageView initialiseImageViews(Image image) {
-		ImageView imageView = new ImageView(image);
-		imageView.setFitWidth(IMAGE_WIDTH);
-		imageView.setPreserveRatio(true);
-		return imageView;
+		computerMoveLabel = new Label();
 	}
 
 	private void layoutNodes() {
@@ -122,7 +118,14 @@ public class GameView extends BorderPane {
 		setCenter(center);
 
 		// right side
-		layoutButtons();
+		layoutRightSide();
+	}
+
+	private ImageView initialiseImageViews(Image image) {
+		ImageView imageView = new ImageView(image);
+		imageView.setFitWidth(IMAGE_WIDTH);
+		imageView.setPreserveRatio(true);
+		return imageView;
 	}
 
 	private void layoutHandsAndDeadwood() {
@@ -175,7 +178,7 @@ public class GameView extends BorderPane {
 		setMargin(leftSide, new Insets(20, 0, 20, 35));
 	}
 
-	private void layoutButtons() {
+	private void layoutRightSide() {
 		knockButton.setPrefSize(160, 40);
 		knockButton.setDisable(true);
 
@@ -187,12 +190,17 @@ public class GameView extends BorderPane {
 		passFirstCardButton.setPrefSize(160, 40);
 		passFirstCardButton.setVisible(false);
 
-		final VBox buttonBox = new VBox(passFirstCardButton, sp);
-		buttonBox.setAlignment(Pos.BOTTOM_CENTER);
+		computerMoveLabel.setPrefSize(160, 40);
+
+		final Region spacer = new Region();
+		VBox.setVgrow(spacer, Priority.ALWAYS);
+
+		final VBox vBoxRight = new VBox(computerMoveLabel, spacer, passFirstCardButton, sp);
+		vBoxRight.setAlignment(Pos.BOTTOM_CENTER);
 		VBox.setMargin(passFirstCardButton, new Insets(0, 0, 50, 0));
 
-		setRight(buttonBox);
-		setMargin(buttonBox, new Insets(20, 35, 20, 0));
+		setRight(vBoxRight);
+		setMargin(vBoxRight, new Insets(20, 35, 20, 0));
 	}
 
 	private void addCards(HBox box) {
@@ -290,6 +298,10 @@ public class GameView extends BorderPane {
 		return passFirstCardButton;
 	}
 
+	Label getComputerMoveLabel() {
+		return computerMoveLabel;
+	}
+
 	void setPlayerTurnColour(boolean computerIsActive) {
 		computerBox.setBorder(new Border(new BorderStroke(Paint.valueOf(computerIsActive ? "Green" : "Black"), BorderStrokeStyle.SOLID, new CornerRadii(10), BorderWidths.DEFAULT)));
 		computerLabel.setTextFill(Paint.valueOf(computerIsActive ? "Green" : "Black"));
@@ -300,4 +312,9 @@ public class GameView extends BorderPane {
 	Image getBACKSIDE_CARD() {
 		return BACKSIDE_CARD;
 	}
+
+	void setComputerMoveLabelText(String s) {
+		computerMoveLabel.setText(s);
+	}
+
 }

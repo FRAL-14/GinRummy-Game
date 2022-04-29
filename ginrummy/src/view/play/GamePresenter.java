@@ -139,6 +139,7 @@ public class GamePresenter {
 		if (turnState == TurnState.FIRST_TURN) {
 			boolean passUpturnCard = RANDOM.nextBoolean();
 			if (passUpturnCard) {
+				VIEW.setComputerMoveLabelText("Pass upturn card");
 				setTurnState(TurnState.FIRST_TURN);
 			} else {
 				cardPlayToHand(false);
@@ -148,16 +149,13 @@ public class GamePresenter {
 			cardPlayToDiscardPile(numberOfCard);
 		} else if (turnState == TurnState.TAKE_FROM_PILE) {
 			boolean takeFromStack = RANDOM.nextBoolean();
-			if (takeFromStack) {
-				cardPlayToHand(true);
-			} else {
-				cardPlayToHand(false);
-			}
+			cardPlayToHand(takeFromStack);
 		}
 	}
 
 	private void moveUpturnCardToHand(ImageView cardView) {
 		if ((turnState == TurnState.FIRST_TURN || turnState == TurnState.TAKE_FROM_PILE) && MODEL.humanIsPlaying()) {
+			VIEW.setComputerMoveLabelText(""); // if computer passed the upturn card first, text goes away
 			MODEL.getHUMAN_PLAYER().getHAND().addCard(MODEL.getDISCARD_PILE().getNextCard());
 			upturnCardAnimation(cardView, false);
 			setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
@@ -175,6 +173,7 @@ public class GamePresenter {
 
 	private void moveStackCardToHand(ImageView cardView) {
 		if (turnState == TurnState.TAKE_FROM_PILE && MODEL.humanIsPlaying()) {
+			VIEW.setComputerMoveLabelText(""); // if computer passed the upturn card first, text goes away
 			MODEL.getHUMAN_PLAYER().getHAND().addCard(MODEL.getDECK().getNextCard());
 			stackCardAnimation(cardView, false);
 			setTurnState(TurnState.HAND_TO_DISCARD_PILE_OR_KNOCK);
