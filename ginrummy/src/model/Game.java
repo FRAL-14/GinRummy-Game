@@ -101,19 +101,32 @@ public class Game {
 	}
 
 	public void distributePoints() {
-		final int humanPoints = getHUMAN_PLAYER().getHAND().calculateDeadwood();
-		final int computerPoints = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
+		final int humanDeadwood = getHUMAN_PLAYER().getHAND().calculateDeadwood();
+		final int computerDeadwood = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
 		int newPoints = 0;
 
-		if (computerPoints == 0 || humanPoints == 0) { // going gin
+		if (computerDeadwood == 0 || humanDeadwood == 0) { // going gin
 			newPoints += 25;
 		}
-		if (humanPoints > computerPoints) {
-			newPoints += humanPoints - computerPoints;
+		if (getPlayerWhoWon() == getCOMPUTER_PLAYER()) {
+			newPoints += humanDeadwood - computerDeadwood;
 			getCOMPUTER_PLAYER().addToScore(newPoints);
-		} else {
-			newPoints += computerPoints - humanPoints;
+		} else if (getPlayerWhoWon() == getHUMAN_PLAYER()) {
+			newPoints += computerDeadwood - humanDeadwood;
 			getHUMAN_PLAYER().addToScore(newPoints);
+		}
+	}
+
+	public Player getPlayerWhoWon() {
+		final int humanDeadwood = getHUMAN_PLAYER().getHAND().calculateDeadwood();
+		final int computerDeadwood = getCOMPUTER_PLAYER().getHAND().calculateDeadwood();
+
+		if (humanDeadwood > computerDeadwood) {
+			return getCOMPUTER_PLAYER();
+		} else if (humanDeadwood < computerDeadwood) {
+			return getHUMAN_PLAYER();
+		} else {
+			return null;
 		}
 	}
 

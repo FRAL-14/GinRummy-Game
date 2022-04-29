@@ -1,6 +1,7 @@
 package view.play;
 
 
+import javafx.scene.control.Alert;
 import model.*;
 import view.home.HomePresenter;
 import view.home.HomeView;
@@ -68,6 +69,25 @@ public class GamePresenter {
 			if (MODEL.isEndOfGame()) {
 				setHomeMenu(); // TODO: needs to be replaced by ending screen
 			} else {
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Gin Rummy");
+				alert.setHeaderText("Round ended!");
+				if (MODEL.getPlayerWhoWon() == MODEL.getHUMAN_PLAYER()) {
+					alert.setContentText(String.format("""
+							Congratulations!
+							You won this round.
+							%s""", (MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood() == 0)? "You even called gin!": ""));
+				} else if (MODEL.getPlayerWhoWon() == MODEL.getCOMPUTER_PLAYER()) {
+					alert.setContentText("""
+							Sadly, you lost this round!""");
+				} else {
+					alert.setContentText("""
+							It's a draw!
+							No one gets points.""");
+				}
+				alert.setResizable(true);
+				alert.showAndWait();
+
 				MODEL.startNewRound();
 			}
 			updateView();
