@@ -90,7 +90,7 @@ public class GamePresenter {
 
 				MODEL.startNewRound();
 			}
-			updateView();
+			setTurnState(TurnState.FIRST_TURN);
 		});
 	}
 
