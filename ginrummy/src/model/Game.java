@@ -134,6 +134,7 @@ public class Game {
 		this.turnNumber = 0;
 		setStartingTimeToNow();
 
+		DISCARD_PILE.clear();
 		DECK.resetDeck();
 		dealCards();
 	}

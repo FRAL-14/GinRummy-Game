@@ -29,6 +29,7 @@ public class NamePresenter {
 		view.getStartGameButton().setOnAction(e -> {
 			if (!"".equalsIgnoreCase(view.getTextField().getText())) {
 				savePlayerName();
+				saveStartingPlayer();
 				startGame();
 			} else {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,6 +74,12 @@ public class NamePresenter {
 	private void savePlayerName() {
 		final String playerName = view.getTextField().getText();
 		model.getHUMAN_PLAYER().setNAME(playerName);
+	}
+
+	private void saveStartingPlayer() {
+		if (view.getRadioButtonComputer().isSelected()) {
+			model.switchTurn(); // when a game is created, it automatically makes the human player go first, so switching turns will make sure it's the opposite
+		}
 	}
 
 }

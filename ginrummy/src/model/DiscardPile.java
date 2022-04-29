@@ -9,9 +9,13 @@ public class DiscardPile {
 
 
 	public DiscardPile() {
-		discardedCards = new LinkedList<>();
+		clear();
 	}
 
+
+	public void clear() {
+		discardedCards = new LinkedList<>();
+	}
 
 	public void addCard(Card card) {
 		discardedCards.add(0, card); //
