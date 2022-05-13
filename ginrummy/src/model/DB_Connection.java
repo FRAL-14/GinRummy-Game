@@ -8,12 +8,12 @@ public class DB_Connection{
 
     protected static final Connection connection = connectToDB();
 
-    public DB_Connection() {
-    }
+    public DB_Connection() {}
 
-    private static Connection connectToDB() {
+    public static Connection connectToDB(){
         try {
-            Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/javafx_game", "javafx_game", "Student_1234");
+            Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/javafx_game", "postgres", "Student_1234");
+            System.out.println("Connected to the PostgreSQL server successfully.");
             return c;
         } catch (SQLException e) {
             e.printStackTrace();

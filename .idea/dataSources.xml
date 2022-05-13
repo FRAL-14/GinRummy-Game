@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="GinRummy@localhost" uuid="6af87467-b826-4214-9842-ca214d313d7f">
+    <data-source source="LOCAL" name="javafx_game@localhost" uuid="6af87467-b826-4214-9842-ca214d313d7f">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/GinRummy</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/javafx_game</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
