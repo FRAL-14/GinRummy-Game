@@ -38,6 +38,7 @@ public class HelpPresenter {
 		stage.setMinWidth(HomeView.MIN_HOME_WIDTH);
 		stage.setMinHeight(HomeView.MIN_HOME_HEIGHT);
 		homeView.getScene().getWindow().sizeToScene();
+		stage.centerOnScreen();
 	}
 
 }

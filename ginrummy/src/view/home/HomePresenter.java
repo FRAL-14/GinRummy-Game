@@ -1,5 +1,6 @@
 package view.home;
 
+import javafx.stage.Stage;
 import model.Game;
 import model.GameStatistics;
 import model.Player;
@@ -68,9 +69,15 @@ public class HomePresenter {
     }
 
     private void rulesScreen(){
-        HelpView helpView = new HelpView();
-        HelpPresenter helpPresenter = new HelpPresenter(MODEL, helpView);
+        final HelpView helpView = new HelpView();
+        final HelpPresenter helpPresenter = new HelpPresenter(MODEL, helpView);
         VIEW.getScene().setRoot(helpView);
+        Stage stage = (Stage) helpView.getScene().getWindow();
+        stage.setMinWidth(500);
+        stage.setMinHeight(400);
+        stage.setWidth(HelpView.HELP_WIDTH);
+        stage.setHeight(HelpView.HELP_HEIGHT);
+        stage.centerOnScreen();
     }
 
 }
