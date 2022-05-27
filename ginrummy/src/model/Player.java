@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.SQLException;
+
 public class Player {
 
     private String NAME;
@@ -7,16 +9,15 @@ public class Player {
     private boolean isPlayerTurn; // Defines who begins the round and is the dealer
     private Hand HAND = new Hand();
 
-
-    public Player(String NAME, int score, boolean isPlayerTurn) {
-        this(score, isPlayerTurn);
-        this.NAME = NAME;
-    }
-
-    public Player(int score, boolean isPlayerTurn) {
-        this.score = score;
+    public Player(boolean isPlayerTurn) {
         this.isPlayerTurn = isPlayerTurn;
     }
+
+    public Player(String NAME, boolean isPlayerTurn) {
+        this.NAME = NAME;
+        this.isPlayerTurn = isPlayerTurn;
+    }
+
 
 
     public Card discardCard(int i) {
@@ -28,7 +29,7 @@ public class Player {
     public String getNAME() {
         return NAME;
     }
-    public void setNAME(String name) {
+    public void setNAME(String name)  {
         this.NAME = name;
     }
 

@@ -2,6 +2,8 @@ package view.name;
 
 import javafx.scene.control.Alert;
 import model.Game;
+
+import model.GameStatistics;
 import model.ViewRules;
 import view.home.HomePresenter;
 import view.home.HomeView;
@@ -10,10 +12,12 @@ import view.play.GameView;
 import javafx.stage.Stage;
 
 
+
+
 public class NamePresenter {
 
 	private final NameView view;
-	private Game model;
+	private  Game model;
 	private GameView gameView;
 
 
@@ -49,6 +53,8 @@ public class NamePresenter {
 
 	//methods for eventHandlers
 	private void startGame() {
+		model.setGameStartTime();
+        GameStatistics.saveStartingGameData();
 		gameView = new GameView();
 		GamePresenter gamePresenter = new GamePresenter(model, gameView);
 		view.getScene().setRoot(gameView);
@@ -74,11 +80,14 @@ public class NamePresenter {
 	private void savePlayerName() {
 		final String playerName = view.getTextField().getText();
 		model.getHUMAN_PLAYER().setNAME(playerName);
+		GameStatistics.savePlayerData(model);
+
 	}
 
 	private void saveStartingPlayer() {
 		if (view.getRadioButtonComputer().isSelected()) {
-			model.switchTurn(); // when a game is created, it automatically makes the human player go first, so switching turns will make sure it's the opposite
+			model.switchTurn();
+			// when a game is created, it automatically makes the human player go first, so switching turns will make sure it's the opposite
 		}
 	}
 

@@ -30,12 +30,7 @@ public class Hand extends Deck {
 
 	public int calculateDeadwood() {
 		//Run: 3 or more cards of the same suit
-		//Set: 3 or more cards of the same number
-
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
+		//Set: 3 or more cards of the same rank
 
 		for (Card playerCard : playerCards) {
 			playerCard.setInMeld(false);
@@ -93,15 +88,6 @@ public class Hand extends Deck {
 		return deadWoodCount;
 	}
 
-	public int getCardCount() {
-		return playerCards.size();
-	}
-
-	public void printPlayerCards() {
-		for (Card card : playerCards) {
-			System.out.print(card + " - ");
-		}
-	}
 
 	public void removeCard(int i) {
 		playerCards.remove(i);

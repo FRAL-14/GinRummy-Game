@@ -278,13 +278,6 @@ public class GameView extends BorderPane {
 		return humanCards;
 	}
 
-	HBox getTopPiles() {
-		return topPiles;
-	}
-
-	HBox getBeneathPiles() {
-		return beneathPiles;
-	}
 
 	ImageView getDiscardPileBeneath() {
 		return discardPileBeneath;

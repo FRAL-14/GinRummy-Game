@@ -1,13 +1,13 @@
-package view.gameover;
+package view.statistics;
 import model.Game;
 
 
-public class GameOverPresenter {
+public class StatisticsPresenter {
 
     private Game model;
-    private GameOverView view;
-    public GameOverPresenter(
-            Game model, GameOverView view) {
+    private StatisticsView view;
+    public StatisticsPresenter(
+            Game model, StatisticsView view) {
         this.model = model;
         this.view = view;
         addEventHandlers();

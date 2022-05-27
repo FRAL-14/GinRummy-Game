@@ -22,10 +22,11 @@ public class StatisticsPresenter {
         });
 
     }
-    private void updateView(){}
-    private void addWindowEventHandlers(){}
+    private void updateView(){
 
-    //methods for event handlers
+    }
+
+
     private void returnToHomeScreen(){
         HomeView homeView = new HomeView();
         HomePresenter homePresenter = new HomePresenter(model, homeView);

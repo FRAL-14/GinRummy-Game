@@ -1,21 +1,19 @@
 package view.home;
 
 import model.Game;
-import model.GameStatistics;
 import model.Player;
 import view.help.HelpPresenter;
 import view.help.HelpView;
 import view.name.NamePresenter;
 import view.name.NameView;
-import view.statistics.StatisticsPresenter;
-import view.statistics.StatisticsView;
+import view.allGamesStatistics.StatisticsPresenter;
+import view.allGamesStatistics.StatisticsView;
 import javafx.stage.Window;
 
 public class HomePresenter {
 
     private final Game MODEL;
     private Player playerModel;
-    private GameStatistics gameStatisticsModel;
     private final HomeView VIEW;
 
 
@@ -29,8 +27,7 @@ public class HomePresenter {
 
 
     private void addEventHandlers() {
-        // add event handlers to view controls (lambdas)
-        // in the event handlers: call model methods and updateView()
+
         this.VIEW.getPlayButton().setOnAction(e->
         {
             nameInput();
@@ -47,7 +44,7 @@ public class HomePresenter {
     }
 
     private void updateView() {
-        // fills the view with model data
+
     }
 
     public void addWindowEventHandlers() {
@@ -55,7 +52,7 @@ public class HomePresenter {
         // add event handlers to window
     }
 
-    //methods for new screens
+
     private void nameInput(){
         NameView nameView = new NameView();
         NamePresenter namePresenter = new NamePresenter(MODEL, nameView);

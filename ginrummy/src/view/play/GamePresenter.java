@@ -1,23 +1,29 @@
 package view.play;
 
-
 import javafx.scene.control.Alert;
 import model.*;
-import view.home.HomePresenter;
-import view.home.HomeView;
+
+import view.statistics.StatisticsPresenter;
+import view.statistics.StatisticsView;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+
 import javafx.geometry.Bounds;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
 import javafx.util.Duration;
+
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Locale;
 import java.util.Random;
 
@@ -27,15 +33,18 @@ public class GamePresenter {
 	private final Game MODEL;
 	private final GameView VIEW;
 	private TurnState turnState;
+
 	private final Random RANDOM = new Random();
 
 
-	public GamePresenter(Game model, GameView view) {
+
+	public GamePresenter(Game model, GameView view)  {
 		this.MODEL = model;
 		this.VIEW = view;
 
 		setTurnState(TurnState.FIRST_TURN);
 
+		//for timer on the screen.
 		MODEL.setStartingTimeToNow();
 
 		addEventHandlers();
@@ -43,7 +52,9 @@ public class GamePresenter {
 	}
 
 
+
 	private void addEventHandlers() {
+
 		VIEW.getRulesMenuItem().setOnAction(e -> displayRulesScreen());
 
 		final ImageView upturnCard = VIEW.getDiscardPileTopCard();
@@ -61,45 +72,55 @@ public class GamePresenter {
 		final ImageView stackCard = VIEW.getStackPileTopCard();
 		stackCard.setOnMouseEntered(mouseEvent -> stackCardAnimation(stackCard, true));
 		stackCard.setOnMouseExited(mouseEvent -> stackCardAnimation(stackCard, false));
-		stackCard.setOnMouseClicked(mouseEvent -> moveStackCardToHand(stackCard));
 
+		stackCard.setOnMouseClicked(mouseEvent -> moveStackCardToHand(stackCard));
 		VIEW.getPassFirstCardButton().setOnAction(actionEvent -> setTurnState(TurnState.FIRST_TURN));
 		VIEW.getKnockButton().setOnAction(actionEvent -> {
+
 			MODEL.distributePoints();
 			if (MODEL.isEndOfGame()) {
-				setHomeMenu(); // TODO: needs to be replaced by ending screen
-			} else {
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setTitle("Gin Rummy");
-				alert.setHeaderText("Round ended!");
-				if (MODEL.getPlayerWhoWon() == MODEL.getHUMAN_PLAYER()) {
-					alert.setContentText(String.format("""
-							Congratulations!
-							You won this round.
-							%s""", (MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood() == 0)? "You even called gin!": ""));
-				} else if (MODEL.getPlayerWhoWon() == MODEL.getCOMPUTER_PLAYER()) {
-					alert.setContentText("""
-							Sadly, you lost this round!""");
-				} else {
-					alert.setContentText("""
-							It's a draw!
-							No one gets points.""");
-				}
-				alert.setResizable(true);
-				alert.showAndWait();
+				MODEL.setGameEndTime();
+				showEndofTurnAlert();
+				GameStatistics.saveEndingGameData(MODEL);
+				setGameOverScreen();
 
+			} else {
+				showEndofTurnAlert();
 				MODEL.startNewRound();
 			}
 			setTurnState(TurnState.FIRST_TURN);
 		});
 	}
 
+
+
+
+	private void showEndofTurnAlert(){
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Gin Rummy");
+		alert.setHeaderText("Round ended!");
+		if (MODEL.getPlayerWhoWon() == MODEL.getHUMAN_PLAYER()) {
+			alert.setContentText(String.format("""
+							Congratulations!
+							You won this round.
+							%s""", (MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood() == 0)? "You even called gin!": ""));
+		} else if (MODEL.getPlayerWhoWon() == MODEL.getCOMPUTER_PLAYER()) {
+			alert.setContentText("""
+							Sadly, you lost this round!""");
+		} else {
+			alert.setContentText("""
+							It's a draw!
+							No one gets points.""");
+		}
+		alert.setResizable(true);
+		alert.showAndWait();
+	}
+
 	private void updateView() {
-		// card images
+
 		MODEL.getHUMAN_PLAYER().getHAND().sortPlayerCards();
 		updateCardImages();
 
-		// scores and deadwood
 		VIEW.getComputerPoints().setText(String.valueOf(MODEL.getCOMPUTER_PLAYER().getScore()));
 		VIEW.getHumanPoints().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getScore()));
 		VIEW.getDeadwoodCount().setText(String.valueOf(MODEL.getHUMAN_PLAYER().getHAND().calculateDeadwood()));
@@ -107,16 +128,27 @@ public class GamePresenter {
 		// elapsed time
 		startTimer();
 
-		// buttons
 		VIEW.getPassFirstCardButton().setVisible(turnState == TurnState.FIRST_TURN && MODEL.humanIsPlaying());
+
 		VIEW.getKnockButton().setDisable(!MODEL.getHUMAN_PLAYER().canKnock());
 	}
 
-	private void setTurnState(TurnState turnState) {
+	private void setTurnState(TurnState turnState){
 		this.turnState = turnState;
-
 		if (this.turnState == TurnState.FIRST_TURN || this.turnState == TurnState.TAKE_FROM_PILE) {
+
+			if (MODEL.getHUMAN_PLAYER().getIsPlayerTurn()){
+				if (MODEL.getTurnNumber()>0){
+					MODEL.setHumanTurnEnds();
+					MODEL.calculateTurnDuration();
+					GameStatistics.saveMoveData(MODEL);
+				}
 			MODEL.incrementTurnNumber();
+
+			} else {
+				MODEL.setHumanTurnStarts();
+			}
+
 			if (MODEL.getTurnNumber() > 1) {
 				MODEL.switchTurn();
 			}
@@ -124,6 +156,7 @@ public class GamePresenter {
 				this.turnState = TurnState.TAKE_FROM_PILE;
 			}
 		}
+
 
 		if (!MODEL.humanIsPlaying()) {
 			VIEW.setPlayerTurnColour(true);
@@ -134,10 +167,12 @@ public class GamePresenter {
 
 		updateView();
 	}
-
 	private void computerMoves() {
+
 		if (turnState == TurnState.FIRST_TURN) {
+
 			boolean passUpturnCard = RANDOM.nextBoolean();
+
 			if (passUpturnCard) {
 				VIEW.setComputerMoveLabelText("Pass upturn card");
 				setTurnState(TurnState.FIRST_TURN);
@@ -152,6 +187,34 @@ public class GamePresenter {
 			cardPlayToHand(takeFromStack);
 		}
 	}
+
+	//Those are the methods for the computer players, AI. Uncompleted.
+	private void doIknock(){
+		/*always yes when you can.*/
+	}
+	private void passTurnOrDrawFromPile(){
+		/*pass turn: */
+	}
+	private void drawFromDickOrPile(){
+		/*
+		 *from pile: if the pile has a card that match with at least two cards of the HANDS.
+		 *           if the cards worth less than or equal to 4 deadwood.
+		 *           if the pile card is less than your greatest deadwood.
+		 *
+		 *from dick: if the pile card is worth to 10 deadwood.
+		 *           if the pile card deadwood is greater than or equal to your greatest card.
+		 *
+		 * if you have cards that doesnt have a match. take card from the pile/deck
+		 * get rid of the highest deadwood card so you can knock as soon as you can.*/
+
+	}
+	private void discardCardFromHand(){}
+    /*
+    loop through the card arrays, save the card that has the most deadwood score, and
+    then discard it.
+     * */
+
+
 
 	private void moveUpturnCardToHand(ImageView cardView) {
 		if ((turnState == TurnState.FIRST_TURN || turnState == TurnState.TAKE_FROM_PILE) && MODEL.humanIsPlaying()) {
@@ -276,9 +339,11 @@ public class GamePresenter {
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
+
 	}
 
 	private void updateCardImages() {
+
 		final Hand modelHumanHand = MODEL.getHUMAN_PLAYER().getHAND();
 		for (int i = 0; i < MAX_NUMBER_OF_CARDS; i++) {
 			if (modelHumanHand.getPlayerCards().size() == MAX_NUMBER_OF_CARDS - 1 && i == MAX_NUMBER_OF_CARDS - 1) {
@@ -308,21 +373,20 @@ public class GamePresenter {
 		}
 	}
 
-	//methods for event handlers
+
 	private void displayRulesScreen() {
 		ViewRules.viewRules(VIEW.getScene());
 	}
 
-	private void setHomeMenu() {
-		HomeView homeView = new HomeView();
-		HomePresenter homePresenter = new HomePresenter(MODEL, homeView);
-		VIEW.getScene().setRoot(homeView);
-		Stage stage = (Stage) homeView.getScene().getWindow();
-		stage.setMinWidth(HomeView.MIN_HOME_WIDTH);
-		stage.setWidth(HomeView.MIN_HOME_WIDTH);
-		stage.setMinHeight(HomeView.MIN_HOME_HEIGHT);
-		stage.setHeight(HomeView.MIN_HOME_HEIGHT);
-		stage.centerOnScreen();
+
+	private void setGameOverScreen(){
+		StatisticsView statisticsView = new StatisticsView();
+		StatisticsPresenter statisticsPresenter = new StatisticsPresenter(MODEL, statisticsView);
+		VIEW.getScene().setRoot(statisticsView);
+		Stage stage = (Stage) statisticsView.getScene().getWindow();
+		stage.setMinHeight(100);
+		stage.setMinWidth(100);
+
 	}
 
 	private String toResourceName(Card card) {
