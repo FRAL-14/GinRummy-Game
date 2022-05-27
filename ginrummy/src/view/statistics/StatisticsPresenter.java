@@ -1,36 +1,27 @@
-package view.statistics;
-
+package view.gameover;
 import model.Game;
-import view.home.HomePresenter;
-import view.home.HomeView;
 
-public class StatisticsPresenter {
-    //private attributes
-    private StatisticsView view;
+
+public class GameOverPresenter {
+
     private Game model;
-
-    public StatisticsPresenter(Game model, StatisticsView view) {
+    private GameOverView view;
+    public GameOverPresenter(
+            Game model, GameOverView view) {
         this.model = model;
-        this.view=view;
+        this.view = view;
         addEventHandlers();
         updateView();
-
     }
-    private void addEventHandlers(){
-        view.getHomeMenuItem().setOnAction(e->{
-            returnToHomeScreen();
-        });
-
+    private void addEventHandlers() {
+// Add event handlers (inner classes or
+// lambdas) to view controls.
+// In the event handlers: call model methods // and updateView().
     }
-    private void updateView(){}
-    private void addWindowEventHandlers(){}
-
-    //methods for event handlers
-    private void returnToHomeScreen(){
-        HomeView homeView = new HomeView();
-        HomePresenter homePresenter = new HomePresenter(model, homeView);
-        view.getScene().setRoot(homeView);
+    private void updateView() {
+// fills the view with model data
     }
-
-
+    public void addWindowEventHandlers () {
+        // Add event handlers to window
+    }
 }
